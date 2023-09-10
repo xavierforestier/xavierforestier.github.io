@@ -90,7 +90,7 @@ function saveFloor(lpForm) {
   if( lpForm.elements["id"].value == "") {
     let curId = -1;
     maison.f.forEach(f => { maxID = Math.max( f.i, curId ); });
-    floor.push({i:++curId, n: "", cables : [], floors : [], plugs : [], doors : [], walls:[] });
+    floor.push({i:++curId, n: "", cables : [], floors : [], plugs : [], doors : [], walls:[], s:[] });
   }
   if(floor.length<1) return false;
   floor[0].n = lpForm.elements["nom"].value;
