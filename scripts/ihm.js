@@ -66,7 +66,7 @@ function newHouse() {
                           v:VERSION_APP, 
                           c: new Date().toJSON(),
                           u: new Date().toJSON(),
-                          floors:[],
+                          f:[],
                           connections:[]}) - 1;
   localStorage.setItem("maisons",JSON.stringify(local));
   loadHouse(idx_file);
