@@ -142,7 +142,7 @@ function setZoom(lpZoom) {
   ctx().restore();
   document.querySelector(".zoomIn").disabled=(lpZoom>=10);
   document.querySelector(".zoomOut").disabled=(lpZoom<=1);
-  max.x = max.y = 0;
+  max.x = max.y = 200;
   maison.f.filter(f => { return f.i == floor; }).forEach(f => { f.floors.forEach(f => { f.p.forEach(p => {
     max.x = Math.max(max.x,p.x);
     max.y = Math.max(max.y,p.y);
