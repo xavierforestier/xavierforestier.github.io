@@ -1,0 +1,383 @@
+<!DOCTYPE html><html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="css/ihm.css">
+    <link rel="stylesheet" type="text/css" href="css/textures.css">
+    <link rel="stylesheet" type="text/css" href="css/plugs.css" title="plugs">
+    <title>Plan maison</title>
+    <script type="text/javascript" src="scripts/textures.js"></script>
+    <script type="text/javascript" src="scripts/ihm.js"></script>
+    <script type="text/javascript" src="scripts/draw.js"></script>
+    <script type="text/javascript" src="scripts/floors.js"></script>
+    <script type="text/javascript" src="scripts/walls.js"></script>
+    <script type="text/javascript" src="scripts/rooms.js"></script>
+    <script type="text/javascript" src="scripts/doors.js"></script>
+    <script type="text/javascript" src="scripts/stairs.js"></script>
+    <script type="text/javascript" src="scripts/plugs.js"></script>
+    <script type="text/javascript" src="scripts/cables.js"></script>
+    <script type="text/javascript" src="scripts/circuit.js"></script>
+  </head>
+  <body onload="init()" style="margin:0">
+    <div class="load">
+      <button class="new hide" title="Nouvelle maison" onclick="newHouse()">Nouveau</button>
+      <label class="import hide" title="Importer d'un fichier">Importer<input id="upload" type="file" accept=".json,application/json" onchange="uploadHouse(event)"></label>
+    </div>
+    <div class="tools">
+      <div class="block">
+        <h1>Maison</h1>
+        <button class="new" title="Nouvelle maison" onclick="newHouse()"></button>
+        <label class="import" title="Importer d'un fichier"><input id="upload" type="file" accept=".json,application/json" onchange="uploadHouse(event)"></label>
+        <div class="block local" title="Ouvrir" onclick="displHouseBloc(this)">
+          <span class="hide">
+            <select size="1" onchange="loadHouse(this.value)"></select>
+            <button class="mini edit" title="Renommer" onclick="editHouse(document.querySelector('div.block.local select').value)"></button>
+            <button class="mini export" title="Exporter dans un fichier" onclick="downloadHouse(document.querySelector('div.block.local select').value)"></button>
+            <button class="mini delete" title="Supprimer cette maison" onclick="delHouse(document.querySelector('div.block.local select').value)"></button>
+          </span>
+        </div>
+    </div>
+    <div class="block">
+      <h1>Naviguer</h1>
+      <button class="zoomOut" title="Dézoomer" onclick="setZoom(zoom - .1)"></button>
+      <button class="zoomIn" title="Zoomer" onclick="setZoom(zoom + .1)"></button>
+      <button class="rotateL" title="Rotation anti-horaire" onclick="toggleRotation(-1)"></button>
+      <button class="rotateR" title="Rotation horaire" onclick="toggleRotation(1)"></button>
+      <button class="down" title="Passer à l'étage inférieur" onclick="down()"></button>
+      <button class="up" title="Passer à l'étage supérieur" onclick="up()"></button>
+    </div>
+    <div class="block">
+        <h1>Afficher</h1>
+        <button class="grid" onclick="toggleGrid()" title="Afficher la grille"></button>
+        <button class="side" onclick="toggleSide()" title="Afficher les cotes"></button>
+        <button class="floorArea" onclick="toggleFloorArea()" title="Afficher les surfaces"></button>
+        <button class="wire" onclick="toggleWire()" title="Afficher les gaines"></button>
+    </div>
+    <div class="block">
+        <h1>Construire</h1>
+        <div class="block etages" title="Construire les étages" onclick="displToolFloor()">
+            <span id="etage" class="hide">
+                <select size="1" onchange="setCurrentFloor(this.options[this.selectedIndex].value)" id="setFloor"></select>
+                <button class="mini add" title="Créer un nouvel étage" onclick="editFloor('')"></button>
+                <button class="mini edit" title="Modifier l'étage"  onclick="editFloor(document.getElementById('setFloor').options[document.getElementById('setFloor').selectedIndex].value)"></button>
+            </span>
+        </div>
+        <div class="block murs" title="Construire les murs" onclick="displToolWall()">
+            <span id="wall" class="hide">
+                <select size="1" id="selWall" required><option></option></select>
+                <button class="mini add" title="Créer un nouveau mur" onclick="createWall()"></button>
+                <button class="mini edit" title="Modifier le mur"  onclick="editWall(document.getElementById('selWall').options[document.getElementById('selWall').selectedIndex].value)"></button>
+            </span>
+        </div>
+        <div class="block pieces" title="Construire les pièces" onclick="displToolRoom()">
+            <span id="piece" class="hide">
+                <select size="1" id="selPiece"><option></option></select>
+                <button class="mini add" title="Créer une nouvelle pièce" onclick="createRoom()"></button>
+                <button class="mini edit" title="Modifier la pièce"  onclick="editRoom(document.getElementById('selPiece').options[document.getElementById('selPiece').selectedIndex].value)"></button>
+            </span>
+        </div>
+        <div class="block doors" title="Construire les ouvertures" onclick="displToolDoor()">
+            <span id="doors" class="hide">
+                <select size="1" id="selDoor" onchange="doorSelectedChange(this)"><option></option></select>
+                <button class="mini add" title="Ajouter une ouverture" onclick="editDoor('')"></button>
+                <button class="mini edit" title="Modifier une ouverture"  onclick="editDoor(document.getElementById('selDoor').options[document.getElementById('selDoor').selectedIndex].value)"></button>
+            </span>
+        </div>
+        <div class="block stairs" title="Insérer un escalier" onclick="displToolStairs()">
+            <span id="stairs" class="hide">
+                <select size="1" id="selStairs"><option></option></select>
+                <button class="mini add" title="Ajouter un escalier" onclick="editStairs('')"></button>
+                <button class="mini edit" title="Modifier l'escalier"  onclick="editStairs(document.getElementById('selStairs').options[document.getElementById('selStairs').selectedIndex].value)"></button>
+            </span>
+        </div>
+    </div>
+    <div class="block">
+        <h1>Electricité</h1>
+        <div class="block prises" title="Gérer les prises électriques" onclick="toggleDisplayPlugs()">
+            <span id="prise" class="hide">
+                <select size="1" id="selPrise" onchange="plugSelectedChange(this)"><option value=""></option></select>
+                <button class="mini add" title="Ajouter une prise" onclick="editPlug('')"></button>
+                <button class="mini edit" title="Modifier une prise" onclick="if(document.getElementById('selPrise').selectedIndex>0) editPlug(document.getElementById('selPrise').options[document.getElementById('selPrise').selectedIndex].value)"></button>
+                <button class="mini find" title="Localiser une prise" onclick="return setFindPrise(document.getElementById('selPrise'))"></button>
+            </span>
+        </div>
+        <div class="block gaines" title="Gérer les gaines électriques" onclick="toggleDisplayCables()">
+            <span id="gaine" class="hide">
+                <select size="1" id="selGaine" onchange="cableSelectedChange(this)"><option value=""></option></select>
+                <button class="mini add" title="Créer une gaine" onclick="editCable('')"></button>
+                <button class="mini edit" title="Modifier une gaine" onclick="if(document.getElementById('selGaine').selectedIndex>0) editCable(document.getElementById('selGaine').options[document.getElementById('selGaine').selectedIndex].value)"></button>
+            </span>
+        </div>
+        <div class="block circuits" title="Gérer les circuits électriques"  onclick="toggleDisplayConnections()">
+            <span id="circuit" class="hide">
+                <select size="1" id="selCircuit" onchange="selCircuit(this)"><option value=""></option></select>
+                <button class="mini add" title="Créer un circuit" onclick="editCircuit('')"></button>
+                <button class="mini edit" title="Modifier un circuit" onclick="if(document.getElementById('selCircuit').selectedIndex>0) editCircuit(document.getElementById('selCircuit').options[document.getElementById('selCircuit').selectedIndex].value)"></button>
+            </span>
+        </div>
+    </div>
+    <div class="block" id="pos"></div>
+    <div id="tableau"><!--img src="img/tableaux.png"><br-->
+        <form name="floors" class="hide" onreset="return hideFloor()" onsubmit="saveFloor(this);return false" action="#">
+          <table width="100%">
+            <tr>
+              <th>Étage #</th>
+              <td><input type="text" name="id" size=3 disabled></td>
+            </tr>
+            <tr>
+              <th>Nom</th>
+              <td><input type="text" name="nom" required></td>
+            </tr>
+            <tr>
+              <th>Ordre</th>
+              <td><select name="ordre" size=1 required></select></td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align:center"><button title="Supprimer" onclick="return delFloor()" name="delBtn" class="delete"></button> <button type="reset" title="Annuler" class="cancel"></button> <button type="submit" title="Sauver" class="save"></button></td>
+            <tr>
+          </table>
+        </form>
+        <form name="walls" class="hide" onreset="return hideWall()" onsubmit="return saveWall(this)" >
+          <table width="100%">
+            <tr>
+              <th>Mur #</th>
+              <td><input type="text" name="id" size=3 disabled></td>
+            </tr>
+            <tr>
+              <th>Nom</th>
+              <td><input type="text" name="nom" required></td>
+            </tr>
+            <tr>
+              <th>Type</th>
+              <td><select size="1" name="type" required><option value="">-</option></select></td>
+            </tr>
+            <tr>
+              <th>Positions</th>
+              <td><select size="4" name="pos" onchange="return selPos('walls')"></select><br>
+              <input type="text" name="newpos" size=9  onkeyup="return updPosLetter('walls')" onchange="updPosLetter('walls')"  pattern="([0-9]*\.[0-9]+|[0-9]+)x([0-9]*\.[0-9]+|[0-9]+)">
+              <button class="mini add" title="Ajouter position" onclick="return addPos('walls')"></button>
+              <button class="mini delete" title="Supprimer position" onclick="return delPos('walls')"></button>
+              <button class="mini mouse" title="Indiquer à la souris" onclick="getPosition.move=(x,y)=>{document.forms['walls'].elements['newpos'].value=`${x}x${y}`;updPosLetter('walls')};getPosition.click=null;return false"></button></td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align:center"><button title="Supprimer" onclick="return delWall()" name="delBtn" class="delete"></button> <button type="reset" title="Annuler" class="cancel"></button> <button type="submit" title="Sauver" class="save"></button></td>
+            <tr>
+          </table>
+        </form>
+         <form name="room" class="hide" onreset="return hideRoom()" onsubmit="return saveRoom(this)">
+          <table width="100%">
+            <tr>
+              <th>O #</th>
+              <td><input type="text" name="id" size=3 disabled></td>
+            </tr>
+            <tr>
+              <th>Nom</th>
+              <td><input type="text" name="nom" required></td>
+            </tr>
+            <tr>
+              <th>Type</th>
+              <td><select size="1" name="type" required><option value="">-</option></select></td>
+            </tr>
+            <tr>
+              <th>Positions</th>
+              <td><select size="4" name="pos" onchange="return selPos('room')"></select><br>
+              <input type="text" name="newpos" size=9 onchange="return selPos('room')" onkeyup="updPosLetter('room')"  pattern="([0-9]*\.[0-9]+|[0-9]+)x([0-9]*\.[0-9]+|[0-9]+)">
+              <button class="mini add" title="Ajouter position" onclick="return addPos('room')"></button>
+              <button class="mini delete" title="Supprimer position" onclick="return delPos('room')"></button>
+              <button class="mini mouse" title="Indiquer à la souris" onclick="getPosition.move=(x,y)=>{document.forms['room'].elements['newpos'].value=`${x}x${y}`;updPosLetter('room')};getPosition.click=null;return false"></button></td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align:center"><button title="Supprimer" onclick="return delRoom()" name="delBtn" class="delete"></button> <button type="reset" title="Annuler" class="cancel"></button> <button type="submit" title="Sauver" class="save"></button></td>
+            <tr>
+          </table>
+        </form>
+         <form name="doors" class="hide" onreset="return hideDoor()" onsubmit="return saveDoor(this)">
+          <table width="100%">
+            <tr>
+              <th>Ouvrant #</th>
+              <td><input type="text" name="id" size=3 disabled></td>
+            </tr>
+            <tr>
+              <th>Nom</th>
+              <td><input type="text" name="nom" required></td>
+            </tr>
+            <tr>
+              <th>Position</th>
+              <td><input type="text" name="posX" size=4 pattern="([0-9]*\.[0-9]+|[0-9]+)" title="Numérique (avec séparateur .)" required onkeyup="drawDraftDoor()" onchange="drawDraftDoor()"> x <input type="text" name="posY" size=4 pattern="([0-9]*\.[0-9]+|[0-9]+)" title="Numérique (avec séparateur .)" required onkeyup="drawDraftDoor()" onchange="drawDraftDoor()"> cm<button class="mini mouse" title="Indiquer à la souris" onclick="getPosition.move=(x,y)=>{document.forms['doors'].elements['posX'].value=x;document.forms['doors'].elements['posY'].value=y;drawDraftDoor()};getPosition.click=null;return false"></button></td>
+            </tr>
+            <tr>
+              <th>Largeur</th>
+              <td><input type="text" name="width" onkeyup="drawDraftDoor()" size=4 pattern="([0-9]*\.[0-9]+|[0-9]+)" title="Numérique (avec séparateur .)" required onchange="drawDraftDoor()"> cm</td>
+            </tr>
+            <tr>
+              <th>Rotation</th>
+              <td><input type="text" name="angle" onkeyup="drawDraftDoor()" size=4 pattern="([0-9]*\.[0-9]+|[0-9]+)" title="Numérique (avec séparateur .)" required onchange="drawDraftDoor()">°</td>
+            </tr>
+            <tr>
+              <th>Couleur</th>
+              <td><input type="color" name="color" required onchange="drawDraftDoor()"></td>
+            </tr>
+            <tr>
+              <th rowspan="2">Options</th>
+              <td><select name="double" onchange="drawDraftDoor()" required><option value="false">Simple battant</option><option value="true">Double battant</option></select></td>
+            </tr>
+            <tr>
+              <td><select name="gauche" onchange="drawDraftDoor()" required><option value="false">Poussant droit</option><option value="true">Poussant gauche</option></select></td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align:center"><button title="Supprimer" onclick="return delDoor()" name="delBtn" class="delete"></button> <button type="reset" title="Annuler" class="cancel"></button> <button type="submit" title="Sauver" class="save"></button></td>
+            <tr>
+          </table>
+        </form>
+         <form name="stairs" class="hide" onreset="return hideStairs()" onsubmit="return saveStairs(this)">
+          <table width="100%">
+            <tr>
+              <th>Escalier #</th>
+              <td><input type="text" name="id" size=3 disabled></td>
+            </tr>
+            <tr>
+              <th>Nom</th>
+              <td><input type="text" name="nom" required></td>
+            </tr>
+            <tr>
+              <th>Position</th>
+              <td><input type="text" name="posX" size=4 pattern="([0-9]*\.[0-9]+|[0-9]+)" title="Numérique (avec séparateur .)" required onkeyup="drawDraftStairs()" onchange="drawDraftStairs()"> x <input type="text" name="posY" size=4 pattern="([0-9]*\.[0-9]+|[0-9]+)" title="Numérique (avec séparateur .)" required onkeyup="drawDraftStairs()" onchange="drawDraftStairs()"> cm<button class="mini mouse" title="Indiquer à la souris" onclick="getPosition.move=(x,y)=>{document.forms['stairs'].elements['posX'].value=x;document.forms['stairs'].elements['posY'].value=y;drawDraftStairs()};getPosition.click=null;return false"></button></td>
+            </tr>
+            <tr>
+              <th>Largeur</th>
+              <td><input type="text" name="width" onkeyup="drawDraftStairs()" size=4 pattern="([0-9]*\.[0-9]+|[0-9]+)" title="Numérique (avec séparateur .)" required onchange="drawDraftStairs()"> cm</td>
+            </tr>
+            <tr>
+              <th>Profondeur marche</th>
+              <td><input type="text" name="step" onkeyup="drawDraftStairs()" size=4 pattern="([0-9]*\.[0-9]+|[0-9]+)" title="Numérique (avec séparateur .)" required onchange="drawDraftStairs()"> cm</td>
+            </tr>
+            <tr>
+              <th>Rotation</th>
+              <td><input type="text" name="angle" onkeyup="drawDraftStairs()" size=4 required onchange="drawDraftStairs()">°</td>
+            </tr>
+            <tr>
+              <th>Géométrie</th>
+              <td><select size="4" name="act" onchange="selAct()"></select><br> <button class="mini" onclick="return addActStraight()">↑</button> <button class="mini" onclick="return addActTurn()">↱</button> <button class="mini delete hide" onclick="return delAct()"></button> </td>
+            </tr>
+            <tr id="straight" class="hide">
+              <td></td><td>↑ sur <input type="number" name="t" size="4" onchange="updActS(this)" > cm</td>
+            </tr>
+            <tr id="turn" class="hide">
+              <td></td><td><select size="1" name="r" style="width:40px" onchange="updActT(this)"><option value="-180">↶</option><option value="-90">↰</option><option value="90">↱</option><option value="180">↷</option></select> en <input type="number" style="width:40px" name ="s" onchange="updActT(this)" onkeyup="updActT(this)" > marches</td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align:center"><button title="Supprimer" onclick="return delStairs()" name="delBtn" class="delete"></button> <button type="reset" title="Annuler" class="cancel"></button> <button type="submit" title="Sauver" class="save"></button></td>
+            <tr>
+          </table>
+        </form>
+        <form name="plugs" class="hide" onreset="return hidePlug()" onsubmit="return savePlug(this)">
+          <table>
+            <tr>
+              <th>Prise #</th>
+              <td><input type="text" name="id" size=3 disabled></td>
+            </tr>
+            <tr>
+              <th>Nom</th>
+              <td><input type="text" name="nom" required onchange="drawDraftPlug()"></td>
+            </tr>
+            <tr>
+              <th>Type</th>
+              <td><select size="1" name="type" required onchange="drawDraftPlug()"></select></td>
+            </tr>
+            <tr>
+                <th>Étages</th>
+              <td><select size="3" name="etage" multiple required></select></td>
+            </tr>
+            <tr>
+              <th>Position</th>
+              <td><input type="text" name="posX" size=4 pattern="([0-9]*\.[0-9]+|[0-9]+)" title="Numérique (avec séparateur .)" required onchange="drawDraftPlug()"> x <input type="text" name="posY" size=4 pattern="([0-9]*\.[0-9]+|[0-9]+)" title="Numérique (avec séparateur .)" required onchange="drawDraftPlug()"> cm<button class="mini mouse" title="Indiquer à la souris" onclick="getPosition.move=(x,y)=>{document.forms['plugs'].elements['posX'].value=x;document.forms['plugs'].elements['posY'].value=y;drawDraftPlug()};getPosition.click=()=>{drawDraftPlug()};return false"></button></td>
+            </tr>
+            <tr>
+              <th>Rotation</th>
+              <td><select size="1" name="rot" onchange="drawDraftPlug()"><option value="">0°</option><option value="r90">90°</option><option value="r180">180°</option><option value="r270">270°</option></select></button></td>
+            </tr>
+            <tr>
+              <th rowspan="2">Éléments</th>
+              <td><select size="3" name="p" multiple></select></td>
+            </tr>
+            <tr>
+              <td><select size="1" name="selP"><option value=""></option></select>
+              <button class="mini add" title="Ajouter prise" onclick="return addPlug()"></button>
+              <button class="mini delete" title="Supprimer prise" onclick="return remPlug()"></button></td></td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align:center"><button title="Supprimer" onclick="return delPlug()" name="delBtn" class="delete"></button> <button type="reset" title="Annuler" class="cancel"></button> <button class="save" type="submit" title="Sauver"></button></td>
+            <tr>
+          </table>
+        </form>
+        <form name="gaine" class="hide" onsubmit="return saveCable(this)" onreset="return hideCable()" width="100%">
+          <table width="100%">
+            <tr>
+              <th>Gaine #</th>
+              <td><input type="text" name="id" size=3 disabled></td>
+            </tr>
+            <tr>
+              <th>Diamètre</th>
+              <td><input type="text" name="diam" size="4" pattern="([0-9]*\.[0-9]+|[0-9]+)" title="Numérique (avec séparateur .)" required onchange="drawDraftCable()">cm</td>
+            </tr>
+            <tr>
+              <th>Prises</th>
+            </tr>
+            <tr>
+              <td colspan="2"><select size="1" name="src" id="gainePriseSrc" onchange="getPosCable(this.value,true)" required><option></option></select> <button class="mini find" title="Localiser une prise" onclick="return setFindPrise(document.forms['gaine'].elements['src'])"></button></td>
+            </tr>
+            <tr>
+              <td colspan="2"><select size="1" name="dst" id="gainePriseDst" onchange="getPosCable(this.value,false)" required><option></option></select> <button class="mini find" title="Localiser une prise" onclick="return setFindPrise(document.forms['gaine'].elements['dst'])"></button></td>
+            </tr>
+            <tr>
+              <th>Positions</th>
+              <td><select size="4" name="pos" onchange="selPosCable()"></select><br>
+              <input type="text" name="newpos" size=9 onkeyup="updPosCable()" onchange="updPosCable()" pattern="([0-9]*\.[0-9]+|[0-9]+)x([0-9]*\.[0-9]+|[0-9]+)">
+              <button class="mini add" title="Ajouter position" onclick="return addPosCable()"></button>
+              <button class="mini delete" title="Supprimer position" onclick="return delPosCable()"></button>
+              <button class="mini mouse" title="Indiquer à la souris" onclick="getPosition.move=(x,y)=>{document.forms['gaine'].elements['newpos'].value=`${x}x${y}`;updPosCable()};getPosition.click=drawDraftCable;return false"></button></td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align:center"><button title="Supprimer" onclick="return delCable()" name="delBtn" class="delete"></button> <button type="reset" title="Annuler" class="cancel"></button><button type="submit" title="Sauver" class="save"></button></td>
+            </tr>
+          </table>
+        </form>
+        <form name="circuit" class="hide" onsubmit="return saveCircuit(this)" onreset="return hideCircuit()" width="100%">
+          <table width="100%">
+            <tr>
+              <th>Circuit #</th>
+              <td><input type="text" name="id" size=3 disabled></td>
+            </tr>
+            <tr>
+              <th>Nom</th>
+              <td><input type="text" name="nom" required></td>
+            </tr>
+            <tr>
+              <th>Prises</th>
+              <td></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+              <select size="4" name="prises"></select><br><select size="1" name="priseSel"><option></option></select>
+                <button class="mini find" title="Localiser une prise" onclick="return setFindPrise(document.forms['circuit'].elements['priseSel'])"></button>
+                <button class="mini add" title="Ajouter prise" onclick="return addSomethingToCircuit('priseSel','prises')"></button>
+              <button class="mini delete" title="Supprimer prise" onclick="return removeSomethingFromCircuit('priseSel','prises')"></button></td>
+            </tr>
+            <tr>
+              <th>Gaines</th>
+              <td></td>
+            </tr>
+            <tr>
+              <td colspan="2"><select size="4" name="gaines"></select><br><select size="1" name="gaineSel"><option value=""></option></select>
+              <button class="mini add" title="Ajouter gaine" onclick="return addSomethingToCircuit('gaineSel','gaines')"></button>
+              <button class="mini delete" title="Supprimer gaine" onclick="return removeSomethingFromCircuit('gaineSel','gaines')"></button></td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align:center"><button title="Supprimer" onclick="return delCircuit()" name="delBtn" class="delete"></button> <button type="reset" title="Annuler" class="cancel"></button><button type="submit" title="Sauver" class="save"></button></td>
+            </tr>
+          </table>
+        </form>
+      </div>
+      </div>
+    <canvas id="dessin"></canvas>
+  </body>
+</html>

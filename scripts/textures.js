@@ -1,0 +1,57 @@
+const types = {
+  v:"0.0.1",
+  walls : [
+    {i:1,n:"Mur en briques (38cm)",w:38,s:0.115,t:"briques.png",c:""},
+    {i:2,n:"Parpaing (16cm)",w:16,s:0.3333,t:"parpaing.jpg",c:""},
+    {i:3,n:"Carreaux de plâtre (7cm)",w:7,s:0,t:"",c:"#BBBBBB"},
+    {i:4,n:"Placo",w:1.3,s:0,t:"",c:"darkgray"},
+    {i:5,n:"Laine de verre (7cm)",w:7,s:0.1,t:"lainedeverre.jpg",c:""},
+    {i:8,n:"Bois (1cm)",w:1,s:0,t:"",c:"#4A1F1E"},
+    {i:9,n:"Laine de verre (12cm)",w:12,s:0.1,t:"lainedeverre.jpg",c:""},
+    {i:10,n:"Cloison en brique (sur le chant)",w:6,s:0.1,t:"brique.png",c:""},
+    {i:12,n:"Torchis",w:1.5,s:0,t:"",c:"#CCCC11"},
+    {i:13,n:"Brique (à plat)",w:10.5,s:0.1,t:"brique.png",c:""}
+  ],
+  floors : [
+    {i:1,n:"Carreau de ciment 20cm noir&blanc",s:0.074,t:"damier.png",c:""},
+    {i:2,n:"Carrelage carré 30cm blanc",s:0.805,t:"carrelage.png",c:""},
+    {i:3,n:"Gazon",s:0.03,t:"gazon2.jpg",c:""},
+    {i:4,n:"Graviers",s:0.25,t:"gravier.png",c:""},
+    {i:5,n:"Parquet massif",s:0.73,t:"parquet.png",c:""},
+    {i:6,n:"Parquet flottant",s:0.3,t:"parquet3.png",c:""},
+    {i:7,n:"Plancher Sapin",s:0.55,t:"plancher.jpg",c:""},
+    {i:8,n:"Terrasse en bois",s:0.7,t:"terrasse.jpg",c:""}
+  ],
+  plugs : [
+    {i:1,w:19,h:19,n:"Prise 2P+T",t:"",c:"prise rouge",f:false},
+    {i:2,w:39,h:34,n:"Va & vient",t:"va-vient.png",c:"vert",f:false},
+    {i:3,w:39,h:34,n:"Va & vient avec voyant",t:"va-vient-voyant.png",c:"vert",f:false},
+    {i:4,w:15,h:15,n:"Poussoir",t:"",c:"poussoir vert",f:false},
+    {i:5,w:26,h:26,n:"Plafonnier",t:"",c:"plafonnier vert",f:false},
+    {i:6,w:20,h:20,n:"XLR",t:"",c:"xlr bleu",f:false},
+    {i:7,w:20,h:20,n:"Prise réseau RJ45",t:"",c:"rj45 bleu",f:false},
+    {i:8,w:21,h:27,n:"Interrupteur store",t:"inter-auto.png",c:"vert",f:false},
+    
+    {i:10,w:19,h:55,n:"Disjoncteur 16A",t:"disjoncteur-16.png",c:"",f:true},
+    {i:11,w:19,h:55,n:"Disjoncteur 20A",t:"disjoncteur-20.png",c:"",f:true},
+    {i:12,w:19,h:55,n:"Disjoncteur 32A",t:"disjoncteur-32.png",c:"",f:true},
+    {i:13,w:19,h:55,n:"Disjoncteur (inactif)",t:"disjoncteur.png",c:"",f:true},
+    {i:14,w:19,h:55,n:"Télérupteur",t:"telerupteur.png",c:"",f:true},
+    {i:15,w:32,h:32,n:"Boite de dérivation",t:"deriv.png",c:"",f:false},
+    {i:16,w:10,h:18,n:"Prise RJ45 n°1",t:"rj-1.png",c:"bleu",f:true},
+    {i:17,w:10,h:18,n:"Prise RJ45 n°2",t:"rj-2.png",c:"bleu",f:true},
+    {i:18,w:10,h:18,n:"Prise RJ45 n°3",t:"rj-3.png",c:"bleu",f:true},
+    {i:19,w:10,h:18,n:"Prise RJ45 n°4",t:"rj-4.png",c:"bleu",f:true},
+    {i:20,w:10,h:18,n:"Prise RJ45 n°5",t:"rj-5.png",c:"bleu",f:true},
+    {i:21,w:10,h:18,n:"Prise RJ45 n°6",t:"rj-6.png",c:"bleu",f:true},
+    {i:22,w:10,h:18,n:"Prise RJ45 n°7",t:"rj-7.png",c:"bleu",f:true},
+    {i:23,w:10,h:18,n:"Prise RJ45 n°8",t:"rj-8.png",c:"bleu",f:true},
+    {i:24,w:26,h:15,n:"Applique",t:"",c:"applique1 vert",f:false},
+    {i:25,w:15,h:26,n:"Applique",t:"",c:"applique2 vert",f:false},
+    {i:26,w:26,h:15,n:"Applique",t:"",c:"applique3 vert",f:false},
+    {i:27,w:15,h:26,n:"Applique",t:"",c:"applique4 vert",f:false},
+    {i:28,w:19,h:19,n:"Sortie de câble",t:"",c:"sortiecable rouge",f:false},
+    {i:29,w:0,h:0,n:"Invisible",t:"",c:"",f:false},
+    {i:30,w:40,h:40,n:"VMC",t:"",c:"vmc rouge",f:false}
+  ]
+};

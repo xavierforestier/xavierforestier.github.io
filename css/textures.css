@@ -1,0 +1,112 @@
+.pr {
+    position:absolute;
+    transition: transform .2s;
+}
+.pr.zoom:hover {
+    transform:scale(4)!important;
+}
+.pr:hover {
+    z-index:255;
+}
+div.pr.v2.zoom.r90 {
+  transform: rotate(90deg);
+}
+div.pr.v2.zoom.r180 {
+  transform: rotate(180deg);
+}
+div.pr.v2.zoom.r270 {
+  transform: rotate(270deg);
+}
+div.pr.v2.zoom.r90.highlight {
+  transform: rotate(90deg) scale(1.5);
+}
+div.pr.v2.zoom.r180.highlight {
+  transform: rotate(180deg) scale(1.5);
+}
+div.pr.v2.zoom.r270.highlight {
+  transform: rotate(270deg) scale(1.5);
+}
+div.pr.v2.highlight { filter: drop-shadow(0 0 5px darkred) drop-shadow(0 0 15px red); } 
+div.pr.v2 span.highlight { filter: drop-shadow(0 0 2px darkred) drop-shadow(0 0 4px red); }
+.pr.zoom.highlight {
+    transform:scale(1.5);
+    z-index:254;
+}
+.pr.highlight.rouge {
+    box-shadow: 0px 0px 22px 8px rgba(255, 0,0, 0.71);
+}
+.pr.highlight.vert {
+    box-shadow: 0px 0px 22px 8px rgba(0, 255,0, 0.71);
+}  
+.pr.highlight.bleu {
+    box-shadow: 0px 0px 22px 8px rgba(0, 0, 255, 0.71);
+}
+
+div.pr.prise, div.pr.sortiecable {
+    width :19px;
+    height:19px;
+    border-radius:9.5px;
+}
+div.pr.prise {
+    background : url("../img/prise.png") center/cover;
+}
+div.pr.sortiecable {
+    background : url("../img/sortie-cable.png") center/cover;
+}
+div.pr.poussoir {
+    width :15px;
+    height:15px;
+    border-radius:7.5px;
+    background : url("../img/poussoir.png") center/cover;
+}
+div.pr.vmc {
+    width :40px;
+    height:40px;
+    border-radius:20px;
+    background : url("../img/vmc.png") center/cover;
+}
+div.pr.plafonnier {
+    width :26px;
+    height:26px;
+    border-radius:13px;
+    background : url("../img/plafonnier.png") center/cover;
+}
+div.pr.applique1, div.pr.applique3 {
+    width :26px;
+    height:15px;
+}
+div.pr.applique2, div.pr.applique4 {
+    width :15px;
+    height:26px;
+}
+div.pr.applique1 {
+    border-radius:13px 13px 0px 0px;
+    background : url("../img/applique1.png") center/cover;
+}
+div.pr.applique3 {
+    border-radius:0px 0px 13px 13px;
+    background : url("../img/applique3.png") center/cover;
+}
+div.pr.applique2 {
+    border-radius: 0px 13px 13px 0px;
+    background : url("../img/applique2.png") center/cover;
+}
+div.pr.applique4 {
+    border-radius: 13px 0px 0px 13px;
+    background : url("../img/applique4.png") center/cover;
+}
+div.pr.xlr, div.pr.rj45 {
+    width :20px;
+    height:20px;
+    border-radius:10px;            
+}
+div.pr.xlr {
+    background : url("../img/xlr.png") center/cover;
+}
+div.pr.rj45 {
+    background : url("../img/rj45.png") center/cover;
+}
+
+.pr img {
+    height:100%;
+}
