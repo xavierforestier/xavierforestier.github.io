@@ -80,7 +80,7 @@ div.pr.v2.DCL {
  margin:calc( -150px * .08);
  padding:0
 }
-div.pr.v2 span.Prise_2P\+T {
+div.pr.v2 span.Prise_2P\+T, div.block.prises {
  background-image : url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTVtbSIgaGVpZ2h0PSI1NW1tIiB2aWV3Qm94PSIwIDAgMjQ0IDI0NCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48c3R5bGU+KntzdHJva2U6IzIzMjYyOTtzdHJva2Utd2lkdGg6MjtmaWxsOiNmZmZ9LmR7ZmlsbDojMjMyNjI5fTwvc3R5bGU+PGNpcmNsZSBjeD0iMTIyIiBjeT0iMTIyIiByPSIxMjEiLz48Y2lyY2xlIGN4PSIxMjIiIGN5PSIxMjIiIHI9Ijk0Ii8+PGNpcmNsZSBjeD0iMTIyIiBjeT0iNzYiIHI9IjEyIiBjbGFzcz0iZCIvPjxjaXJjbGUgY3g9Ijc3IiBjeT0iMTIyIiByPSIxMyIgY2xhc3M9ImQiLz48Y2lyY2xlIGN4PSIxNjQiIGN5PSIxMjIiIHI9IjEzIiBjbGFzcz0iZCIvPjwvc3ZnPg==);
 }
 div.pr.v2 span.Poussoir, div.pr.v2 span.Va_\26_vient {
