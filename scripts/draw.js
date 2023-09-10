@@ -62,7 +62,7 @@ function lineWidthM(lpW) {
 * calcSurface : Calcul la surface des pièces
 *--------------------------------------------------------------------------------------------*/
 function calcSurface() {
-  max.x = max.y = 0;
+  max.x = max.y = 200;
   maison.f.forEach(floor => { 
     floor.floors.forEach(f => { f.p.forEach(p => {
       max.x = Math.max(max.x,p.x);
