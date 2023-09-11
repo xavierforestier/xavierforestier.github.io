@@ -69,6 +69,11 @@ button.active {
     border-style : inset;
     background-position : 1px 1px;
 }
+div.block div.block.disabled, select:disabled, button:disabled,div.block  div.block.disabled:hover {
+    background-color:#d0d0d7;
+    border:solid gray 0.1px;  
+    filter: opacity(75%) blur(1px);
+}
 input#upload{
     opacity:0;
     width : 1px; height : 1px;

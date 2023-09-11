@@ -220,6 +220,7 @@ function toggleDisplayCablesV2() {
     hideWall();
     hideRoom();
     hideDoor();
+    hideStairs();
     hidePlug();
     hideCircuit();
     elmnt.classList.remove("hide");

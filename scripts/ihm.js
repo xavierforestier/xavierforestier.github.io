@@ -84,7 +84,9 @@ function loadHouse(i) {
   load_waiting = types.walls.length + types.floors.length + 1
   idx_file = i;
   maison = local[idx_file];
-  floor =(maison.f.length>0?maison.f[0].i:0);
+  if(maison.f.filter( f => { return f.i == floor; }).length <= 0 ) {
+    floor =(maison.f.length>0?maison.f[0].i:0);
+  }
   ["walls","floors"].forEach(t=>{
     for(let i=0; i<types[t].length;i++)  {
       if(types[t][i].t!="") {
@@ -102,8 +104,16 @@ function loadHouse(i) {
   if(show.side) document.querySelector("button.side").classList.add("active");
   if(show.area) document.querySelector("button.floorArea").classList.add("active");
   if(show.wire) document.querySelector("button.wire").classList.add("active");
-  document.querySelector("button.down").disabled = (maison.f.length >0 && maison.f[0].i== floor );
-  document.querySelector("button.up").disabled = (maison.f.length >0 && maison.f[maison.f.length-1].i== floor );
+  
+  hideFloor();
+  hideWall();
+  hideRoom();
+  hideDoor();
+  hideStairs();
+  hidePlug();
+  hideCable();
+  hideCircuit();
+  hideUselessTools();
   maison.f.forEach(f => { f.plugs.forEach(p => {
     if(! document.querySelector(`div#p${ p.i }`)) {
       addPlugs(p);

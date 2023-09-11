@@ -80,10 +80,13 @@ function displToolDoor() {
       opt.text = `${ d.i }] ${ d.n }`;
       selOpt.appendChild(opt);
     });
+    selOpt.disabled=(selOpt.options.length<2);
+    elmnt.parentNode.querySelector("button.edit").disabled=true;
     elmnt.classList.remove("hide");
     hideFloor();
     hideWall();
     hideRoom();
+    hideStairs();
     hidePlug();
     hideCable();
     hideCircuit();
@@ -201,6 +204,7 @@ function hideDoor() {
 } //hideDoor
 
 function doorSelectedChange(select) {
+  document.querySelector('div.block.doors button.edit').disabled=select.value=='';
   draw();
   ctx().save();
   ctx().shadowBlur=15;

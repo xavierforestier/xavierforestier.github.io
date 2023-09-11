@@ -19,6 +19,8 @@ function displToolRoom() {
         selOpt.appendChild(grp);
       }
     });
+    selOpt.disabled=(selOpt.options.length<2);
+    elmnt.parentNode.querySelector("button.edit").disabled=true;
     const selTypeOpt = document.forms["room"].elements["type"];
     while(selTypeOpt.childNodes.length>1) selTypeOpt.removeChild(selTypeOpt.childNodes[1]);
     
@@ -32,6 +34,7 @@ function displToolRoom() {
     hideFloor();
     hideWall();
     hideDoor();
+    hideStairs();
     hidePlug();
     hideCable();
     hideCircuit();

@@ -158,7 +158,9 @@ function onClickPlug(lpElmnt) {
     }
     switch(findPrise.id) {
       case "selPrise":
-        editPlug(lpElmnt.id.substr(1));
+        document.querySelector("div.block.prises button.edit").value=="";
+        document.getElementById("selPrise").value = lpElmnt.id.substr(1);
+        plugSelectedChange(document.getElementById("selPrise"));
         break;
       case "gainePriseSrc" :
         getPosCable(findPrise.value,true);
@@ -290,11 +292,15 @@ function toggleDisplayPlugsV2() {
       opt.text = floor.n;
       selFloorOpt.appendChild(opt);
     });
+    selOpt.disabled=(selOpt.options.length<2);
+    elmnt.parentNode.querySelector("button.find").disabled=(selOpt.options.length<2);
+    elmnt.parentNode.querySelector("button.edit").disabled=true;
     elmnt.classList.remove("hide");
     hideFloor();
     hideWall();
     hideRoom();
     hideDoor();
+    hideStairs();
     hideCable();
     hideCircuit();
   }
@@ -537,7 +543,8 @@ function savePlugV2(lpForm) {
   let curId = 0;
   if( lpForm.elements["id"].value == "") {
     maison.f.forEach(f => { f.plugs.forEach(p=>{ curId = Math.max( p.i, curId ); }); });
-     lpForm.elements["id"].value=++curId;
+    lpForm.elements["id"].value=++curId;
+    addPlugs({i: curId, n:lpForm.elements["nom"].value, t:parseInt(lpForm.elements["type"].value), x: parseFloat(lpForm.elements["posX"].value), y: parseFloat(lpForm.elements["posY"].value)});
   }
   else {
     curId = parseInt(lpForm.elements["id"].value);
@@ -574,6 +581,9 @@ function savePlugV2(lpForm) {
     }
   }
   
+  const cls = document.querySelector(`div#p${ curId }`).classList;
+  cls.remove("hide");
+  cls.forEach(c=>{if(c.substr(0,2)=="et") cls.remove(c);});
   for( let i = 0; i< maison.f.length; i++) {
     const plugs = maison.f[i].plugs.filter(p => { return p.i != curId; });
     for( let f=0; f<lpForm.elements["etage"].selectedOptions.length;f++) {
@@ -585,6 +595,7 @@ function savePlugV2(lpForm) {
                     x: parseFloat(lpForm.elements["posX"].value),
                     y: parseFloat(lpForm.elements["posY"].value),
                     p:p });
+        if( lpForm.elements["id"].value == "") 
         document.querySelector(`div#p${ curId }`).classList.add( `et${ maison.f[i].i }` );
         break;
       }
@@ -671,6 +682,7 @@ function plugSelectedChange(lpSel) {
     if(plugHighlight!="") unHighlightPlug(plugHighlight, true);
     var val=lpSel.options[lpSel.selectedIndex].value;
     if (val!="") highlightPlug(val, true);
+    document.querySelector("div.block.prises button.edit").disabled=lpSel.value=="";
 } //plugSelectedChange
 
 /*---------------------------------------------------------------------------------------------

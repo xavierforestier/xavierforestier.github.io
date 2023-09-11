@@ -63,14 +63,14 @@
         </div>
         <div class="block murs" title="Construire les murs" onclick="displToolWall()">
             <span id="wall" class="hide">
-                <select size="1" id="selWall" required><option></option></select>
+                <select size="1" id="selWall" onchange="document.querySelector('div.block.murs button.edit').disabled=this.value==''" required><option></option></select>
                 <button class="mini add" title="Créer un nouveau mur" onclick="createWall()"></button>
                 <button class="mini edit" title="Modifier le mur"  onclick="editWall(document.getElementById('selWall').options[document.getElementById('selWall').selectedIndex].value)"></button>
             </span>
         </div>
         <div class="block pieces" title="Construire les pièces" onclick="displToolRoom()">
             <span id="piece" class="hide">
-                <select size="1" id="selPiece"><option></option></select>
+                <select size="1" id="selPiece" onchange="document.querySelector('div.block.pieces button.edit').disabled=this.value==''"><option></option></select>
                 <button class="mini add" title="Créer une nouvelle pièce" onclick="createRoom()"></button>
                 <button class="mini edit" title="Modifier la pièce"  onclick="editRoom(document.getElementById('selPiece').options[document.getElementById('selPiece').selectedIndex].value)"></button>
             </span>
@@ -84,7 +84,7 @@
         </div>
         <div class="block stairs" title="Insérer un escalier" onclick="displToolStairs()">
             <span id="stairs" class="hide">
-                <select size="1" id="selStairs"><option></option></select>
+                <select size="1" id="selStairs" onchange="document.querySelector('div.block.stairs button.edit').disabled=this.value==''"><option></option></select>
                 <button class="mini add" title="Ajouter un escalier" onclick="editStairs('')"></button>
                 <button class="mini edit" title="Modifier l'escalier"  onclick="editStairs(document.getElementById('selStairs').options[document.getElementById('selStairs').selectedIndex].value)"></button>
             </span>

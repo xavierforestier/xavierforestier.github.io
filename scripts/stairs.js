@@ -11,6 +11,8 @@ function displToolStairs() {
       selOpt.appendChild(opt);
     });
     elmnt.classList.remove("hide");
+    selOpt.disabled=(selOpt.options.length<2);
+    elmnt.parentNode.querySelector("button.edit").disabled=true;
     hideFloor();
     hideWall();
     hideRoom();

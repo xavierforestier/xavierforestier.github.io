@@ -222,6 +222,7 @@ function toggleDisplayConnectionsV2() {
     hideWall();
     hideRoom();
     hideDoor();
+    hideStairs();
     hidePlug();
     hideCable();
   }

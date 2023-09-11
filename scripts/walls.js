@@ -73,7 +73,6 @@ function displToolWall() {
   elmnt=document.getElementById("wall");
   if(elmnt.classList.contains("hide")) {
     const selOpt=document.getElementById("selWall");
-    console.warn("TODO', 'désactiver le bouton Edit");//elmnt.querySelector("button.edit").disabled=true;
     while(selOpt.childNodes.length>1) selOpt.removeChild(selOpt.childNodes[1]);
     
     types.walls.forEach( type => {
@@ -90,6 +89,9 @@ function displToolWall() {
         selOpt.appendChild(grp);
       }
     });
+    selOpt.disabled=(selOpt.options.length<2);
+    elmnt.parentNode.querySelector("button.edit").disabled=true;
+    
     const selTypeOpt = document.forms["walls"].elements["type"];
     while(selTypeOpt.childNodes.length>1) selTypeOpt.removeChild(selTypeOpt.childNodes[1]);
     
@@ -102,6 +104,7 @@ function displToolWall() {
     hideFloor();
     hideRoom();
     hideDoor();
+    hideStairs();
     hidePlug();
     hideCable();
     hideCircuit();

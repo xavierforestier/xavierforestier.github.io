@@ -15,10 +15,13 @@ function displToolFloor() {
       selOpt.appendChild(opt);
     });
     elmnt.classList.remove("hide");
-    elmnt.querySelector("button.edit").disabled=(maison.f.length==0);
+    selOpt.disabled=(maison.f.length==0);
+    elmnt.parentNode.querySelector("button.edit").disabled=(maison.f.length==0);
+    hideUselessTools();
     hideWall();
     hideRoom();
     hideDoor();
+    hideStairs();
     hidePlug();
     hideCable();
     hideCircuit();
@@ -28,6 +31,19 @@ function displToolFloor() {
   }
 }//displToolEtage
 
+function hideUselessTools() {
+  document.querySelector("div.block button.down").disabled = (maison.f.length==0 || maison.f[0].i== floor );
+  document.querySelector("div.block button.up").disabled = (maison.f.length==0 || maison.f[maison.f.length-1].i== floor );
+  document.querySelectorAll("div.block.murs,div.block.pieces,div.block.doors,div.block.stairs,div.block.prises,div.block.gaines,div.block.circuits").forEach(div => { 
+    if(maison.f.length>0) {
+      div.classList.remove("disabled");
+    }
+    else
+    {
+      div.classList.add("disabled");
+    }
+  });
+}
 /*---------------------------------------------------------------------------------------------
 * editFloor : Affiche le volet d'édition d'étage
 *----------------------------------------------------------------------------------------------
@@ -120,6 +136,7 @@ function saveFloor(lpForm) {
 function hideFloor() {
   document.forms["floors"].classList.add("hide");
   document.getElementById("etage").classList.add("hide");
+  hideUselessTools();
 }
 
 /*---------------------------------------------------------------------------------------------
@@ -129,10 +146,9 @@ function hideFloor() {
 *--------------------------------------------------------------------------------------------*/
 function setCurrentFloor(lpEtage) {
   floor=lpEtage;
-  document.querySelector("button.down").disabled = (maison.f[0].i== floor );
-  document.querySelector("button.up").disabled = (maison.f[maison.f.length-1].i== floor );
   document.querySelectorAll("form,div.block div.block span,div.pr").forEach(frm=>{frm.classList.add("hide")});    
   document.querySelectorAll("div.pr.et"+floor).forEach(frm=>{frm.classList.remove("hide")});
+  hideUselessTools();
   setZoom(zoom);
 }//setCurrentFloor
 
