@@ -357,7 +357,7 @@
             </tr>
             <tr>
               <td colspan="2">
-              <select size="4" name="prises"></select><br><select size="1" name="priseSel"><option></option></select>
+              <select size="4" name="prises" onchange="selCirChange(this)"></select><br><select size="1" name="priseSel" onchange="selCirChange(this)"><option></option></select>
                 <button class="mini find" title="Localiser une prise" onclick="return setFindPrise(document.forms['circuit'].elements['priseSel'])"></button>
                 <button class="mini add" title="Ajouter prise" onclick="return addSomethingToCircuit('priseSel','prises')"></button>
               <button class="mini delete" title="Supprimer prise" onclick="return removeSomethingFromCircuit('priseSel','prises')"></button></td>
@@ -367,7 +367,7 @@
               <td></td>
             </tr>
             <tr>
-              <td colspan="2"><select size="4" name="gaines"></select><br><select size="1" name="gaineSel"><option value=""></option></select>
+              <td colspan="2"><select size="4" name="gaines" onchange="selCirChange(this)"></select><br><select size="1" name="gaineSel" onchange="selCirChange(this)"><option value=""></option></select>
               <button class="mini add" title="Ajouter gaine" onclick="return addSomethingToCircuit('gaineSel','gaines')"></button>
               <button class="mini delete" title="Supprimer gaine" onclick="return removeSomethingFromCircuit('gaineSel','gaines')"></button></td>
             </tr>

@@ -147,7 +147,9 @@ function toggleDisplayConnectionsV2() {
         ogrp.appendChild(opt);
       });
       selConnectOpt.appendChild(ogrp);
-    }
+    }    
+    selConnectOpt.disabled=(selConnectOpt.options.length<2);
+    elmnt.parentNode.querySelector("button.edit").disabled=true;
     const selPlugOpt = document.forms["circuit"].elements["priseSel"];
     while (selPlugOpt.childNodes.length > 1) { selPlugOpt.removeChild(selPlugOpt.childNodes[1]); }
     
@@ -217,6 +219,7 @@ function toggleDisplayConnectionsV2() {
       });
       selCableOpt.appendChild(ogrp);
     }
+    document.forms["circuit"].querySelectorAll("button.add,button.delete").forEach(b => { b.disabled=true; });
     elmnt.classList.remove("hide");
     hideFloor();
     hideWall();
@@ -446,6 +449,7 @@ function selCircuitV1(lpSelElmnt) {
   });
 }
 function selCircuitV2(lpSelElmnt) {
+  document.querySelector('div.block.circuits button.edit').disabled=lpSelElmnt.value=='';
   extra_info="";
   document.querySelectorAll(".highlight").forEach(p=>{ p.classList.remove("highlight"); });  
   maison.connections.filter(c => { return c.i == parseInt(lpSelElmnt.value); }).forEach(c => {
@@ -498,6 +502,14 @@ function drawDraftCicuitV2() {
   }
   ctx().restore();
 }
+function selCirChange(select) {
+  if(select.name.endsWith("Sel")) {
+    select.parentNode.querySelector("button.add").disabled = select.value=="";
+  }
+  else {
+    select.parentNode.querySelector("button.delete").disabled = select.value=="";
+  }
+}
 /*---------------------------------------------------------------------------------------------
  * addPlugToCircuit : Ajoute la prise sélectionnée au circuit en cours
  *--------------------------------------------------------------------------------------------*/
@@ -512,7 +524,9 @@ function addSomethingToCircuit(selector,dest) {
       document.forms["circuit"].elements[dest].selectedIndex + 1);
   lOption.classList.add("hide");
   item.selectedIndex = 0;
+  item.parentNode.querySelector("button.add").disabled=true;
   document.forms["circuit"].elements[dest].selectedIndex++;
+  item.parentNode.querySelector("button.delete").disabled=false;
   drawDraftCicuit();
   return false;
 } //addSomethingToCircuit
@@ -528,7 +542,9 @@ function removeSomethingFromCircuit(selector,dest) {
   var lOption = lPrise.options[lPrise.selectedIndex];
   document.forms["circuit"].elements[selector].querySelector(`option[value='${ lOption.value }']`).classList.remove("hide");
   lPrise.remove(lPrise.selectedIndex);
+  lPrise.parentNode.querySelector("button.delete").disabled=true;
   document.forms["circuit"].elements[selector].value = lOption.value;
+  lPrise.parentNode.querySelector("button.add").disabled=false;
   drawDraftCicuit();
   return false;
 } //removeSomethingFromCircuit

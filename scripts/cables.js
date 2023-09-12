@@ -182,6 +182,8 @@ function toggleDisplayCablesV2() {
       });
       selOpt.appendChild(ogrp);
     }
+    selOpt.disabled=(selOpt.options.length<2);
+    elmnt.parentNode.querySelector("button.edit").disabled=true;
 
     ["gainePriseSrc", "gainePriseDst"].forEach(id => {
       const selOpt = document.forms["gaine"].elements[id];
@@ -233,12 +235,12 @@ function toggleDisplayCablesV2() {
  * cableSelectedChange : Nouvelle gaine sélectionnée : redessine en rouge la gaine
  *--------------------------------------------------------------------------------------------*/
 function cableSelectedChange(lpSel) {
+  document.querySelector('div.block.gaines button.edit').disabled=lpSel.value=='';
   draw();
   ctx().save();
   rotateScene(ctx());
-  let val = lpSel.options[lpSel.selectedIndex].value;
   maison.f.filter(f => f.i == floor)[0].cables.forEach(g => {
-    if (g.i == val)
+    if (g.i == parseInt(lpSel.value))
       drawFullCable(g.p, g.w, GAINE_HIGHLIGHT, true)
   });
   ctx().restore();

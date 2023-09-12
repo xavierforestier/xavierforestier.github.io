@@ -153,21 +153,32 @@ function onOutPlug(lpElmnt) {
 *--------------------------------------------------------------------------------------------*/
 function onClickPlug(lpElmnt) {
   if(findPrise != false) {
-    for(var i=0;i<findPrise.options.length;i++) {
-      findPrise.options[i].selected = (`p${ findPrise.options[i].value }`==lpElmnt.id);
+    if(findPrise.name=="priseSel") {
+      for(let i=1;i<findPrise.options.length;i++) {
+        if(!findPrise.classList.contains("hide") && ( JSON.parse(findPrise.options[i].value).p== lpElmnt.id.substr(1) ) ) {
+          findPrise.parentNode.querySelector("button.add").disabled=false;
+          findPrise.options[i].selected=true;
+          break;
+        }
+      }
     }
-    switch(findPrise.id) {
-      case "selPrise":
-        document.querySelector("div.block.prises button.edit").value=="";
-        document.getElementById("selPrise").value = lpElmnt.id.substr(1);
-        plugSelectedChange(document.getElementById("selPrise"));
-        break;
-      case "gainePriseSrc" :
-        getPosCable(findPrise.value,true);
-        break;
-      case "gainePriseDst" :
-        getPosCable(findPrise.value,false);
-        break;
+    else {
+      for(var i=0;i<findPrise.options.length;i++) {
+        findPrise.options[i].selected = (`p${ findPrise.options[i].value }`==lpElmnt.id);
+      }
+      switch(findPrise.id) {
+        case "selPrise":
+          document.querySelector("div.block.prises button.edit").value=="";
+          document.getElementById("selPrise").value = lpElmnt.id.substr(1);
+          plugSelectedChange(document.getElementById("selPrise"));
+          break;
+        case "gainePriseSrc" :
+          getPosCable(findPrise.value,true);
+          break;
+        case "gainePriseDst" :
+          getPosCable(findPrise.value,false);
+          break;
+      }
     }
     findPrise=false;
     document.body.style.cursor="auto";
