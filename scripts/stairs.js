@@ -229,7 +229,7 @@ function drawDraftStairs() {
     w:parseFloat(lElmnt["width"].value),
     s:parseFloat(lElmnt["step"].value),
     a: a
-  }, {style:"black",width:2});
+  }, {style:(window.matchMedia('(prefers-color-scheme: dark)').matches?"white":"black"),width:2});
   ctx().restore();
 }//drawDraftStairs
 
@@ -238,7 +238,7 @@ function drawStairs(stair,style) {
   rotateScene(ctx());
   ctx().lineWidth = style.width;
   ctx().strokeStyle = style.style;
-  ctx().fillStyle = "white";
+  ctx().fillStyle = (window.matchMedia('(prefers-color-scheme: dark)').matches?"#353535":"white");
   ctx().translate(m(stair.x), m(stair.y));
   ctx().rotate(stair.r*Math.PI/180);
   ctx().save();
@@ -249,7 +249,7 @@ function drawStairs(stair,style) {
         ctx().beginPath();
         moveToM(-stair.w/2, 0);
         lineToM( stair.w/2, 0);
-        lineToM( stair.w/2, stair.s);
+        lineToM( stair.w/2, stair.s);window.matchMedia('(prefers-color-scheme: dark)').matches
         lineToM(-stair.w/2, stair.s);
         lineToM(-stair.w/2, 0);
         ctx().fill();

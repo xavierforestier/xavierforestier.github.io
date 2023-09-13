@@ -283,7 +283,7 @@ function draw() {
   ctx().lineTo(document.getElementById("dessin").width,document.getElementById("dessin").height );
   ctx().lineTo(document.getElementById("dessin").width,0 );
   ctx().lineTo(0,0);
-  ctx().fillStyle="white";
+  ctx().fillStyle=(window.matchMedia('(prefers-color-scheme: dark)').matches?"#1c1b22":"white");
   ctx().fill();
   ctx().closePath();
   ctx().restore();
@@ -383,7 +383,7 @@ function draw() {
   ctx().save();
   rotateScene(ctx());
   maison.f.filter(f => { return f.i == floor; }).forEach(f => { f.s.forEach(stair => {
-    drawStairs(stair,{style:"black",width:2});
+    drawStairs(stair,{style:(window.matchMedia('(prefers-color-scheme: dark)').matches?"white":"black"),width:1});
   }); });
   ctx().restore();  
   
