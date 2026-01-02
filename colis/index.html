@@ -1,10 +1,10 @@
-t<html>
+tt<html>
   <head>
     <title>Estimation frais de port</title>
     <script>
       fetch("data/tarif.json").then(j => {
         const tarifs = j.json();
-        document.querySelector("form").submit=() => {
+        document.querySelector("form").submit=(event) => {
           const length = parseFloat(document.querySelector("input#length").value);
           const width = parseFloat(document.querySelector("input#width").value);
           const height = parseFloat(document.querySelector("input#height").value);
@@ -34,6 +34,7 @@ t<html>
               tr.appendChild(document.createElement("td").appendChild(document.createTextNode(t.t)));
               domArray.appendChild(tr);
             });
+          event.preventDefault();
         };
       });
     </script>
