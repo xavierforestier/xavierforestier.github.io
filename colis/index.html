@@ -3,7 +3,7 @@ t<html>
     <title>Estimation frais de port</title>
     <script>
       fetch("data/tarif.json").then(j => {
-        const tarifs = j.json();
+        const tarifs = await j.json();
         document.querySelector("form").submit=() => {
           const length = parseFloat(document.querySelector("input#length").value);
           const width = parseFloat(document.querySelector("input#width").value);
@@ -45,7 +45,7 @@ t<html>
       <label for="width">Largeur (cm)</label> <input type="number" id="width" required />
       <label for="height">Hauteur (cm)</label> <input type="number" id="height" required /> 
       <label for="weight">Poids (kg)</label> <input type="number" id="weight" required />
-      <submit>Calculer</submit>
+      <input type="submit" value="Calculer" />
     </form>
     <h1>Résultats</h1>
     <table>
