@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <title>Estimation frais de port</title>
+    <script>
+      fetch("data/tarif.json").then(j => {
+        const tarifs = j.json();
+        const length = parseInt(document.querySelector("input#length").value, 10);
+        const width = parseInt(document.querySelector("input#width").value, 10);
+        const height = parseInt(document.querySelector("input#height").value, 10);
+        const weight = parseInt(document.querySelector("input#weight").value, 10);
+        document.querySelector("form").submit=() => {
+          const result = [];
+          tarifs
+            .filter(t => { return ( t.r.maxL     === null || t.r.maxL     >= length ) 
+                               && ( t.r.maxW     === null || t.r.maxW     >= width  ) 
+                               && ( t.r.maxH     === null || t.r.maxH     >= height )
+                               && ( t.r.maxLWH   === null || t.r.maxLWH   >= length + width + height )
+                               && ( t.r.maxL2W2H === null || t.r.maxL2W2H >= length + (2 * width) + (2 * height) ); })
+            .forEach(t => {
+            for( p in t.t ) {
+              if( p >= weight ) {
+                result.push({ "n" : t.n, "h": t.h, "t": t.t[p] });
+              }
+            }
+          });
+          const domArray = document.querySelector("tbody");
+          while(domArray.hasChildNodes()) { domArray.removeChild(domArray.firstChild); }
+          tarifs
+            .sort( (a,b) => { return a.t - b.t; })
+            .forEach(t => {
+              const tr = document.createElement("tr");
+              tr.appendChild(document.createElement("td").appendChild(document.createTextNode(t.n)));
+              tr.appendChild(document.createElement("td").appendChild(document.createTextNode(t.h?"à l maison":"en relais")));
+              tr.appendChild(document.createElement("td").appendChild(document.createTextNode(t.t)));
+              domArray.appendChild(tr);
+            });
+        };
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Format du Colis</h1>
+    <form>
+      <label for="length">Longueur (cm)</label> <input type="number" id="length" required />
+      <label for="width">Largeur (cm)</label> <input type="number" id="width" required />
+      <label for="length">Hauteur (cm)</label> <input type="number" id="depth" required /> 
+      <label for="weight">Poids (kg)</label> <input type="number" id="weight" required />
+      <submit>Calculer</submit>
+    </form>
+    <h1>Résultats</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Livreur</th>
+          <th>Relais</th>
+          <th>Tarif</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </body>
+</html>
