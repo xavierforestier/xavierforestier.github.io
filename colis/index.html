@@ -4,11 +4,11 @@
     <script>
       fetch("data/tarif.json").then(j => {
         const tarifs = j.json();
-        const length = parseInt(document.querySelector("input#length").value, 10);
-        const width = parseInt(document.querySelector("input#width").value, 10);
-        const height = parseInt(document.querySelector("input#height").value, 10);
-        const weight = parseInt(document.querySelector("input#weight").value, 10);
         document.querySelector("form").submit=() => {
+          const length = parseFloat(document.querySelector("input#length").value);
+          const width = parseFloat(document.querySelector("input#width").value);
+          const height = parseFloat(document.querySelector("input#height").value);
+          const weight = parseFloat(document.querySelector("input#weight").value);
           const result = [];
           tarifs
             .filter(t => { return ( t.r.maxL     === null || t.r.maxL     >= length ) 
