@@ -2,7 +2,7 @@
   <head>
     <title>Estimation frais de port</title>
     <script>
-      fetch("data/tarif.json").then(j => {
+      fetch("data/tarif.json").then(async j => {
         const tarifs = await j.json();
         document.querySelector("form").submit=(event) => {
           const length = parseFloat(document.querySelector("input#length").value);
