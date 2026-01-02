@@ -11,11 +11,11 @@
           const weight = parseFloat(document.querySelector("input#weight").value);
           const result = [];
           tarifs
-            .filter(t => { return ( t.r.maxL     === null || t.r.maxL     >= length ) 
-                               && ( t.r.maxW     === null || t.r.maxW     >= width  ) 
-                               && ( t.r.maxH     === null || t.r.maxH     >= height )
-                               && ( t.r.maxLWH   === null || t.r.maxLWH   >= length + width + height )
-                               && ( t.r.maxL2W2H === null || t.r.maxL2W2H >= length + (2 * width) + (2 * height) ); })
+            .filter(t => { return t.r === null || ( t.r.maxL     === null || t.r.maxL     >= length ) 
+                                                 && ( t.r.maxW     === null || t.r.maxW     >= width  ) 
+                                                 && ( t.r.maxH     === null || t.r.maxH     >= height )
+                                                 && ( t.r.maxLWH   === null || t.r.maxLWH   >= length + width + height )
+                                                 && ( t.r.maxL2W2H === null || t.r.maxL2W2H >= length + (2 * width) + (2 * height) ) ); })
             .forEach(t => {
             for( p in t.t ) {
               if( p >= weight ) {
