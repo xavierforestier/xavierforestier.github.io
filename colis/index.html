@@ -27,7 +27,12 @@
               .forEach(offre => {
                 const best = offre.t.find( t => { for( p in t ) { if( p >= weight ) { return true; } } });
                 for( p in best ) { 
-                  result.push({ "n" : offre.n, "h": offre.h, "t": best[p], "a": offre.a ? (offre.a.f ? offre.a.f : offre.a.r * p / 1000 ) : 0 });
+                  result.push({ "name": offre.n,
+                                "home": offre.h, 
+                                "price": best[p],
+                                "insurance": offre.a ? (offre.a.f ? offre.a.f : offre.a.r * p / 1000 ) : 0,
+                                "url": offre.u
+                              });
                 }
               });
             const domArray = document.querySelector("tbody");
@@ -37,16 +42,26 @@
               .forEach(t => {
                 const tr = document.createElement("tr");
                 const td1 = document.createElement("td");
-                td1.appendChild(document.createTextNode(t.n));
+                if(t.url ) {
+                  const a = document.createElement("a");
+                  a.href = t.url;
+                  a.appendChild(document.createTextNode(t.name));
+                  td1.appendChild(a);
+                }
+                else {
+                  td1.appendChild(document.createTextNode(t.name));
+                }
                 tr.appendChild(td1);
                 const td2 = document.createElement("td");
-                td2.appendChild(document.createTextNode(t.h?"🏠":"🏪"));
+                td2.appendChild(document.createTextNode(t.home?"🏠":"🏪"));
                 tr.appendChild(td2);
                 const td3 = document.createElement("td");
-                td3.appendChild(document.createTextNode(Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(t.t)));
+                td3.appendChild(document.createTextNode(Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(t.price)));
                 tr.appendChild(td3);
                 const td4 = document.createElement("td");
-                if(t.a > 0 ) { td4.appendChild(document.createTextNode(Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(t.a))); }
+                if(t.insurance > 0 ) {
+                  td4.appendChild(document.createTextNode(Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(t.insurance)));
+                }
                 tr.appendChild(td4);
                 domArray.appendChild(tr);
               });
