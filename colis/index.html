@@ -21,7 +21,7 @@
                 for (t in offre.t) {
                   for( p in offre.t[t].t ) {
                     if( p >= weight ) {
-                      result.push({ "n" : offre.n, "h": offre.h, "t": JSON.stringify(t.t[p]) });
+                      result.push({ "n" : offre.n, "h": offre.h, "t": offre.t[t].t[p] });
                       break offres;
                     }
                   }
@@ -48,10 +48,15 @@
           return false;
         };
       });
-      document.querySelectorAll("form input").forEach(input => { input.onchange= (event) => { document.querySelector("form").submit(); }; });
+      document.body.onload = () => {
+        document.querySelectorAll("form input").forEach( input => { 
+          input.onchange= (event) => { document.querySelector("form").submit(); };
+        });
+      };
     </script>
     <style>
-      th,td { background-color: lightgrey; width: 300px }
+      th{  width: 300px };
+      tr:nth-child(odd) { background-color: lightgrey;  } 
     </style>
   </head>
   <body>
