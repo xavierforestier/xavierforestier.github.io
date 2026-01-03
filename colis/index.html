@@ -46,7 +46,7 @@
                 if(t.url ) {
                   const a = document.createElement("a");
                   a.href = t.url;
-                  a.targer = "_blank";
+                  a.target = "_blank";
                   a.appendChild(document.createTextNode(t.name));
                   td1.appendChild(a);
                 }
@@ -58,7 +58,7 @@
                 if(t.relais) {
                   const a = document.createElement("a");
                   a.href = t.relais;
-                  a.targer = "_blank";
+                  a.target = "_blank";
                   a.appendChild(document.createTextNode(t.home?"🏠":"🏪"));
                   td2.appendChild(a);
                 }
