@@ -3,81 +3,84 @@
     <title>Estimation frais de port</title>
     <script>
       function init() {
+        const tarifs = [];
         document.querySelectorAll('form input').forEach( input => { 
           input.onchange= (event) => { document.querySelector('form').submit(); }; 
         });
-        fetch("data/tarif.json").then(async j => {
-          const tarifs = await j.json();
-          document.querySelector("form").submit=(event) => {
-            const length = parseFloat(document.querySelector("input#length").value);
-            const width = parseFloat(document.querySelector("input#width").value);
-            const height = parseFloat(document.querySelector("input#height").value);
-            const weight = parseFloat(document.querySelector("input#weight").value) * 1000;
-            const result = [];
-            tarifs
-              .filter(t => { return ! t.r || ( ( t.r.maxL     === undefined || t.r.maxL     >= length ) 
-                                            && ( t.r.minL     === undefined || t.r.minL     < length ) 
-                                            && ( t.r.maxW     === undefined || t.r.maxW     >= width  ) 
-                                            && ( t.r.minW     === undefined || t.r.minW     < width  ) 
-                                            && ( t.r.maxH     === undefined || t.r.maxH     >= height )
-                                            && ( t.r.minH     === undefined || t.r.minH     < height ) 
-                                            && ( t.r.maxLWH   === undefined || t.r.maxLWH   >= length + width + height )
-                                            && ( t.r.minLWH   === undefined || t.r.minLWH   < length + width + height )
-                                            && ( t.r.minL2W2H === undefined || t.r.minL2W2H < length + (2 * width) + (2 * height) ) ); })
-              .forEach(offre => {
-                const best = offre.t.find( t => { for( p in t ) { if( p >= weight ) { return true; } } });
-                for( p in best ) { 
-                  result.push({ "name": offre.n,
-                                "home": offre.h, 
-                                "price": best[p],
-                                "insurance": offre.a ? (offre.a.f ? offre.a.f : offre.a.r * p / 1000 ) : 0,
-                                "url": offre.u,
-                                "relais": offre.relais
-                              });
-                }
-              });
-            const domArray = document.querySelector("tbody");
-            while(domArray.hasChildNodes()) { domArray.removeChild(domArray.firstChild); }
-            result
-              .sort( (a,b) => { return a.price - b.price; })
-              .forEach(t => {
-                const tr = document.createElement("tr");
-                const td1 = document.createElement("td");
-                if(t.url ) {
-                  const a = document.createElement("a");
-                  a.href = t.url;
-                  a.target = "_blank";
-                  a.appendChild(document.createTextNode(t.name));
-                  td1.appendChild(a);
-                }
-                else {
-                  td1.appendChild(document.createTextNode(t.name));
-                }
-                tr.appendChild(td1);
-                const td2 = document.createElement("td");
-                if(t.relais) {
-                  const a = document.createElement("a");
-                  a.href = t.relais;
-                  a.target = "_blank";
-                  a.appendChild(document.createTextNode(t.home?"🏠":"🏪"));
-                  td2.appendChild(a);
-                }
-                else {
-                  td2.appendChild(document.createTextNode(t.home?"🏠":"🏪"));
-                }
-                tr.appendChild(td2);
-                const td3 = document.createElement("td");
-                td3.appendChild(document.createTextNode(Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(t.price)));
-                tr.appendChild(td3);
-                const td4 = document.createElement("td");
-                if(t.insurance > 0 ) {
-                  td4.appendChild(document.createTextNode(Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(t.insurance)));
-                }
-                tr.appendChild(td4);
-                domArray.appendChild(tr);
-              });
-          };
+        ["tarif","mondialrelais".forEach(src => {
+          fetch(`data/${src}.json`).then( j => {
+            j.json().then( json => { while(json.length > 0) { tarifs.push(json.pop()); } });
+          });
         });
+        document.querySelector("form").submit=(event) => {
+          const length = parseFloat(document.querySelector("input#length").value);
+          const width = parseFloat(document.querySelector("input#width").value);
+          const height = parseFloat(document.querySelector("input#height").value);
+          const weight = parseFloat(document.querySelector("input#weight").value) * 1000;
+          const result = [];
+          tarifs
+            .filter(t => { return ! t.r || ( ( t.r.maxL     === undefined || t.r.maxL     >= length ) 
+                                          && ( t.r.minL     === undefined || t.r.minL     < length ) 
+                                          && ( t.r.maxW     === undefined || t.r.maxW     >= width  ) 
+                                          && ( t.r.minW     === undefined || t.r.minW     < width  ) 
+                                          && ( t.r.maxH     === undefined || t.r.maxH     >= height )
+                                          && ( t.r.minH     === undefined || t.r.minH     < height ) 
+                                          && ( t.r.maxLWH   === undefined || t.r.maxLWH   >= length + width + height )
+                                          && ( t.r.minLWH   === undefined || t.r.minLWH   < length + width + height )
+                                          && ( t.r.minL2W2H === undefined || t.r.minL2W2H < length + (2 * width) + (2 * height) ) ); })
+            .forEach(offre => {
+              const best = offre.t.find( t => { for( p in t ) { if( p >= weight ) { return true; } } });
+              for( p in best ) { 
+                result.push({ "name": offre.n,
+                              "home": offre.h, 
+                              "price": best[p],
+                              "insurance": offre.a ? (offre.a.f ? offre.a.f : offre.a.r * p / 1000 ) : 0,
+                              "url": offre.u,
+                              "relais": offre.relais
+                            });
+              }
+            });
+          const domArray = document.querySelector("tbody");
+          while(domArray.hasChildNodes()) { domArray.removeChild(domArray.firstChild); }
+          result
+            .sort( (a,b) => { return a.price - b.price; })
+            .forEach(t => {
+              const tr = document.createElement("tr");
+              const td1 = document.createElement("td");
+              if(t.url ) {
+                const a = document.createElement("a");
+                a.href = t.url;
+                a.target = "_blank";
+                a.appendChild(document.createTextNode(t.name));
+                td1.appendChild(a);
+              }
+              else {
+                td1.appendChild(document.createTextNode(t.name));
+              }
+              tr.appendChild(td1);
+              const td2 = document.createElement("td");
+              if(t.relais) {
+                const a = document.createElement("a");
+                a.href = t.relais;
+                a.target = "_blank";
+                a.appendChild(document.createTextNode(t.home?"🏠":"🏪"));
+                td2.appendChild(a);
+              }
+              else {
+                td2.appendChild(document.createTextNode(t.home?"🏠":"🏪"));
+              }
+              tr.appendChild(td2);
+              const td3 = document.createElement("td");
+              td3.appendChild(document.createTextNode(Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(t.price)));
+              tr.appendChild(td3);
+              const td4 = document.createElement("td");
+              if(t.insurance > 0 ) {
+                td4.appendChild(document.createTextNode(Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(t.insurance)));
+              }
+              tr.appendChild(td4);
+              domArray.appendChild(tr);
+            });
+        };
       }
     </script>
     <style>
