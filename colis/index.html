@@ -16,10 +16,14 @@
             const result = [];
             tarifs
               .filter(t => { return ! t.r || ( ( t.r.maxL     === undefined || t.r.maxL     >= length ) 
+                                            && ( t.r.minL     === undefined || t.r.minL     < length ) 
                                             && ( t.r.maxW     === undefined || t.r.maxW     >= width  ) 
+                                            && ( t.r.minW     === undefined || t.r.minW     < width  ) 
                                             && ( t.r.maxH     === undefined || t.r.maxH     >= height )
+                                            && ( t.r.minH     === undefined || t.r.minH     < height ) 
                                             && ( t.r.maxLWH   === undefined || t.r.maxLWH   >= length + width + height )
-                                            && ( t.r.maxL2W2H === undefined || t.r.maxL2W2H >= length + (2 * width) + (2 * height) ) ); })
+                                            && ( t.r.minLWH   === undefined || t.r.minLWH   < length + width + height )
+                                            && ( t.r.minL2W2H === undefined || t.r.minL2W2H < length + (2 * width) + (2 * height) ) ); })
               .forEach(offre => {
                 const best = offre.t.find( t => { for( p in t ) { if( p >= weight ) { return true; } } });
                 for( p in best ) { 
@@ -42,7 +46,7 @@
                 td3.appendChild(document.createTextNode(Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(t.t)));
                 tr.appendChild(td3);
                 const td4 = document.createElement("td");
-                td4.appendChild(document.createTextNode(Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(t.a)));
+                if(t.a > 0 ) { td4.appendChild(document.createTextNode(Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(t.a))); }
                 tr.appendChild(td4);
                 domArray.appendChild(tr);
               });
