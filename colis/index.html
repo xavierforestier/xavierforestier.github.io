@@ -11,7 +11,7 @@
           const weight = parseFloat(document.querySelector("input#weight").value);
           const result = [];
           tarifs
-            .filter(t => { return t.r === null || ( t.r.maxL     === null || t.r.maxL     >= length ) 
+            .filter(t => { return t.r === null || ( ( t.r.maxL     === null || t.r.maxL     >= length ) 
                                                  && ( t.r.maxW     === null || t.r.maxW     >= width  ) 
                                                  && ( t.r.maxH     === null || t.r.maxH     >= height )
                                                  && ( t.r.maxLWH   === null || t.r.maxLWH   >= length + width + height )
