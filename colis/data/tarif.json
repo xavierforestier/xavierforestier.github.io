@@ -175,7 +175,7 @@
     {
         "n": "Shop2Shop", "u" : "https://www.chronopost.fr/fr/livraison/nos-offres/shop2shop-chronopost",
         "h": false,
-        "r": {"minL": 30, "minW": 21, "minH": 3 }
+        "r": {"minL": 30, "minW": 21, "minH": 3 },
         "t": [{"500":4.20},{"3000":6.50},{"10000":13.90},{"20000":19.90}]
     },
     {
