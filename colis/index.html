@@ -21,17 +21,18 @@
                                                    && ( t.r.maxLWH   === null || t.r.maxLWH   >= length + width + height )
                                                    && ( t.r.maxL2W2H === null || t.r.maxL2W2H >= length + (2 * width) + (2 * height) ) ); })
               .forEach(offre => {
-                offres: {
-                  for (t in offre.t) {
-                    for( p in offre.t[t] ) {
-                      if( p >= weight ) {
-                        result.push({ "n" : offre.n, "h": offre.h, "t": offre.t[t][p] });
-                        break offres;
-                      }
+                offre.t
+                  .find( t => {
+                    for( p in t ) { 
+                      if( p >= weight ) { return true; }
                     }
-                  }
-                }
-            });
+                  })
+                  .forEach( t => {
+                    for( p in t ) { 
+                      result.push({ "n" : offre.n, "h": offre.h, "t": t[p] });
+                    }
+                  });
+              });
             const domArray = document.querySelector("tbody");
             while(domArray.hasChildNodes()) { domArray.removeChild(domArray.firstChild); }
             result
@@ -45,7 +46,7 @@
                 td2.appendChild(document.createTextNode(t.h?"🏠":"🏪"));
                 tr.appendChild(td2);
                 const td3 = document.createElement("td");
-                td3.appendChild(document.createTextNode(t.t));
+                td3.appendChild(document.createTextNode(Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(t.t)));
                 tr.appendChild(td3);
                 domArray.appendChild(tr);
               });
@@ -58,8 +59,8 @@
     </style>
   </head>
   <body onload="init()">
-    <h1>Format du Colis</h1>
-    <form action="#">
+    <h1>Colis</h1>
+    <form action="#res">
       <div class="weight"><label for="weight">Poids (kg)</label> <input type="number" id="weight" min="0.1" step="0.1" required /></div>
       <div class="size">
         <label for="length">Longueur (cm)</label> <input type="number" id="length" min="1" required />
@@ -67,7 +68,7 @@
         <label for="height">Hauteur (cm)</label> <input type="number" id="height" min="1" required />
       </div>
     </form>
-    <h1>Résultats</h1>
+    <h1><a name="res" />Offres</h1>
     <table>
       <thead>
         <tr>
