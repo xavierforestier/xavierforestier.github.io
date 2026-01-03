@@ -8,8 +8,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v6
     - name: init env
-      run: |
-        pip install undetected-chromedriver
+      run: pip install undetected-chromedriver
     - name: Fetch
       run: |
         python <<EOF
@@ -21,6 +20,7 @@ jobs:
         driver.quit()
         EOF
     - name: Parse
+      run: |
         git config --local user.name "xavier.forestier"
         git config --local user.email "{ID}+{username}@users.noreply.github.com"
         git fetch
