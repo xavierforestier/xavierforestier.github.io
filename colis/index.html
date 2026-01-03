@@ -17,12 +17,12 @@
                                                  && ( t.r.maxLWH   === null || t.r.maxLWH   >= length + width + height )
                                                  && ( t.r.maxL2W2H === null || t.r.maxL2W2H >= length + (2 * width) + (2 * height) ) ); })
             .forEach(offre => {
-              offre: {
+              offres: {
                 offre.t.forEach( t => {
                   for( p in t.t ) {
                     if( p >= weight ) {
                       result.push({ "n" : offre.n, "h": offre.h, "t": JSON.stringify(t.t[p]) });
-                      break offre;
+                      break offres;
                     }
                   }
                 });
