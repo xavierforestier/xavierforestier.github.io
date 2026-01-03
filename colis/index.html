@@ -12,7 +12,7 @@
             const length = parseFloat(document.querySelector("input#length").value);
             const width = parseFloat(document.querySelector("input#width").value);
             const height = parseFloat(document.querySelector("input#height").value);
-            const weight = parseFloat(document.querySelector("input#weight").value);
+            const weight = parseFloat(document.querySelector("input#weight").value) * 1000;
             const result = [];
             tarifs
               .filter(t => { return ! t.r || ( ( t.r.maxL     === undefined || t.r.maxL     >= length ) 
