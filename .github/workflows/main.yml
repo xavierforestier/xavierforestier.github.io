@@ -7,18 +7,24 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v6
-    - name: Fetch and build JSON
+    - name: init env
       run: |
         pip install undetected-chromedriver
+    - name: Fetch
+      run: |
         python <<EOF
-        print('Hello, World!')
+        import undetected_chromedriver as uc
+        driver = uc.Chrome(headless=True,use_subprocess=False)
+        driver.get('https://www.mondialrelay.fr/envoi-de-colis/tarifs-expeditions/')
+        with open('/tmp/mondialrelay.html', 'w') as file:
+            file.write(driver.page_source)
+        driver.quit()
         EOF
-        exit
+    - name: Parse
         git config --local user.name "xavier.forestier"
         git config --local user.email "{ID}+{username}@users.noreply.github.com"
         git fetch
         git switch main
-        curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.3" -e https://www.google.com/search?q=mondialrelay https://www.mondialrelay.fr/envoi-de-colis/tarifs-expeditions/ > /tmp/mondialrelay.html
         cat /tmp/mondialrelay.html
         echo "[" > colis/data/mondialrelais.json
         echo "{\"n\":\"Mondial Relais (lockers)\",\"u\":\"https://www.mondialrelay.fr/envoi-de-colis/tarifs-expeditions/\",\"relais\":\"https://www.mondialrelay.fr/trouver-le-point-relais-le-plus-proche-de-chez-moi/\",\"h\":false,\"r\":{\"maxL\":64,\"maxW\":41,\"maxH\":38},\"t\":[$( for i in $(head -n `grep -n "<h2>" /tmp/mondialrelay.html | grep "international" | cut -d: -f1` /tmp/mondialrelay.html  | grep \"Poids -n | cut -d: -f1);do echo -n ",{\"$( echo "scale=0; $( tail /tmp/mondialrelay.html -n +$i | head -n1 | cut -d\> -f2 | cut -d\< -f1 | cut -dK -f1 | tr , . ) * 1000 / 1" | bc )\":$( tail /tmp/mondialrelay.html -n +$(( $i + 1 )) | head -n1 | cut -d\> -f2 | tr "€" "<"| cut -d\< -f1 | tr , . )}"; done |cut -c2- )]}," >> colis/data/mondialrelais.json
