@@ -235,7 +235,7 @@
         "n": "Chrono Relais 13", "u": "https://www.chronopost.fr/fr/livraison/nos-offres/chrono-relais",
         "h": false,
         "r": {"maxL":100,"maxL2W2H":250, "minL": 30, "minW": 21, "minH": 3},
-        "t": [{"1000":8.39},{"2000":8.00},{"5000":10.76},{"10000":13.73},{"15000":12.53},{"20000":15.33}]
+        "t": ["1000":8.39,"2000":8.99,"3000":9.58,"4000":10.18,"5000":10.76,"6000":11.35,"7000":11.95,"8000":12.54,"9000":13.13,"10000":13.73,"11000":14.52,"12000":15.3,"13000":16.09,"14000":16.88,"15000":17.68,"16000":18.47,"17000":19.26,"18000":20.04,"19000":20.83,"20000":21.62]
     },
     {
         "n": "Shop2Shop", "u" : "https://www.chronopost.fr/fr/livraison/nos-offres/shop2shop-chronopost", "relais": "https://www.chronoshop2shop.fr/fr/trouver-relais-pickup",
