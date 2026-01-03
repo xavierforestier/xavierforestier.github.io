@@ -23,9 +23,9 @@
               .forEach(offre => {
                 offres: {
                   for (t in offre.t) {
-                    for( p in offre.t[t].t ) {
+                    for( p in offre.t[t] ) {
                       if( p >= weight ) {
-                        result.push({ "n" : offre.n, "h": offre.h, "t": offre.t[t].t[p] });
+                        result.push({ "n" : offre.n, "h": offre.h, "t": offre.t[t][p] });
                         break offres;
                       }
                     }
@@ -54,7 +54,6 @@
       }
     </script>
     <style>
-      th { width: 300px };
       tr:nth-child(odd) { background-color: lightgrey } 
     </style>
   </head>
