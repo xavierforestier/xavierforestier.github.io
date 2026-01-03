@@ -19,7 +19,8 @@
             .forEach(t => {
             for( p in t.t ) {
               if( p >= weight ) {
-                result.push({ "n" : t.n, "h": t.h, "t": t.t[p] });
+                result.push({ "n" : t.n, "h": t.h, "t": JSON.stringify(t.t[p]) });
+                break;
               }
             }
           });
@@ -29,9 +30,15 @@
             .sort( (a,b) => { return a.t - b.t; })
             .forEach(t => {
               const tr = document.createElement("tr");
-              tr.appendChild(document.createElement("td").appendChild(document.createTextNode(t.n)));
-              tr.appendChild(document.createElement("td").appendChild(document.createTextNode(t.h?"à l maison":"en relais")));
-              tr.appendChild(document.createElement("td").appendChild(document.createTextNode(t.t)));
+              const td1 = document.createElement("td");
+              td1.appendChild(document.createTextNode(t.n));
+              tr.appendChild(td1);
+              const td2 = document.createElement("td");
+              td2.appendChild(document.createTextNode(t.h?"à l maison":"en relais"));
+              tr.appendChild(td2);
+              const td3 = document.createElement("td");
+              td3.appendChild(document.createTextNode(t.t));
+              tr.appendChild(td3);
               domArray.appendChild(tr);
             });
           return false;
