@@ -31,7 +31,8 @@
                                 "home": offre.h, 
                                 "price": best[p],
                                 "insurance": offre.a ? (offre.a.f ? offre.a.f : offre.a.r * p / 1000 ) : 0,
-                                "url": offre.u
+                                "url": offre.u,
+                                "relais": offre.relais
                               });
                 }
               });
@@ -53,7 +54,15 @@
                 }
                 tr.appendChild(td1);
                 const td2 = document.createElement("td");
-                td2.appendChild(document.createTextNode(t.home?"🏠":"🏪"));
+                if(t.relais) {
+                  const a = document.createElement("a");
+                  a.href = t.relais;
+                  a.appendChild(document.createTextNode(t.home?"🏠":"🏪"));
+                  td2.appendChild(a);
+                }
+                else {
+                  td2.appendChild(document.createTextNode(t.home?"🏠":"🏪"));
+                }
                 tr.appendChild(td2);
                 const td3 = document.createElement("td");
                 td3.appendChild(document.createTextNode(Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(t.price)));
