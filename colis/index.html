@@ -38,7 +38,7 @@
             const domArray = document.querySelector("tbody");
             while(domArray.hasChildNodes()) { domArray.removeChild(domArray.firstChild); }
             result
-              .sort( (a,b) => { return a.t - b.t; })
+              .sort( (a,b) => { return a.price - b.price; })
               .forEach(t => {
                 const tr = document.createElement("tr");
                 const td1 = document.createElement("td");
