@@ -23,7 +23,7 @@
               .forEach(offre => {
                 const best = offre.t.find( t => { for( p in t ) { if( p >= weight ) { return true; } } });
                 for( p in best ) { 
-                  result.push({ "n" : offre.n, "h": offre.h, "t": best[p] });
+                  result.push({ "n" : offre.n, "h": offre.h, "t": best[p], "a": offre.a ? (offre.a.f ? offre.a.f : offre.a.r * p / 1000 ) : 0 });
                 }
               });
             const domArray = document.querySelector("tbody");
@@ -41,6 +41,9 @@
                 const td3 = document.createElement("td");
                 td3.appendChild(document.createTextNode(Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(t.t)));
                 tr.appendChild(td3);
+                const td4 = document.createElement("td");
+                td4.appendChild(document.createTextNode(Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(t.a)));
+                tr.appendChild(td4);
                 domArray.appendChild(tr);
               });
           };
@@ -68,6 +71,7 @@
           <th>Livreur</th>
           <th>Relais</th>
           <th>Tarif</th>
+          <th>Assurance</th>
         </tr>
       </thead>
       <tbody></tbody>
