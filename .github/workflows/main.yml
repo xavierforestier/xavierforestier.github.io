@@ -9,6 +9,11 @@ jobs:
       uses: actions/checkout@v6
     - name: Fetch and build JSON
       run: |
+        pip install undetected-chromedriver
+        python <<EOF
+        print('Hello, World!')
+        EOF
+        exit
         git config --local user.name "xavier.forestier"
         git config --local user.email "{ID}+{username}@users.noreply.github.com"
         git fetch
