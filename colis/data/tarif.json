@@ -184,66 +184,6 @@
         "a": { "r": 0,"f": 115 }
     },
     {
-        "n": "Chrono 13 Prêt-à-Envoyer - Enveloppe", "u": "https://www.laposte.fr/pp/enveloppe-chronopost-1kg/p/018207",
-        "h": true,
-        "r": {"maxL":33.5,"maxW": 27,"maxH": 1},
-        "t": [{"1000":33}]
-    },
-    {
-        "n": "Chrono 13 Prêt-à-Envoyer - Enveloppe matelassée", "u": "https://www.laposte.fr/boutique/pochette-matelassee-chronopost-1kg/p/018209",
-        "h": true,
-        "r": {"maxL":29.5,"maxW": 26,"maxH": 1},
-        "t": [{"1000":34}]
-    },
-    {
-        "n": "Chrono 13 Prêt-à-Envoyer - Enveloppe matelassée", "u": "https://www.laposte.fr/boutique/pochette-matelassee-chronopost-2-kg/p/018208",
-        "h": true,
-        "r": {"maxL":38,"maxW": 29,"maxH": 1},
-        "t": [{"2000":35}]
-    },
-    {
-        "n": "Chrono 13 Prêt-à-Envoyer - Boîte 3kg", "u": "https://www.laposte.fr/pp/boite-chronopost-3-kg/p/018212",
-        "h": true,
-        "r": {"maxL":32,"maxW": 23,"maxH": 8},
-        "t": [{"3000":38}]
-    },
-    {
-        "n": "Chrono 13 Prêt-à-Envoyer - Boîte 6kg", "u": "https://www.laposte.fr/boutique/boite-chronopost-6-kg/p/018211",
-        "h": true,
-        "r": {"maxL":32,"maxW": 25,"maxH": 12},
-        "t": [{"6000":43}]
-    },
-    {
-        "n": "Chrono 13 Prêt-à-Envoyer - Boîte 12kg", "u": "https://www.laposte.fr/boutique/boite-chronopost-12-kg/p/018210",
-        "h": true,
-        "r": {"maxL":38,"maxW": 38,"maxH": 22.7},
-        "t": [{"12000":55}]
-    },
-    {
-        "n": "Chrono 13", "u": "https://www.chronopost.fr/fr/livraison/nos-offres/chrono-13",
-        "h": true,
-        "r": {"maxL":150,"maxL2W2H":300, "minL": 30, "minW": 21, "minH": 3},
-        "t": [{"1000":19.45},{"2000":21.24},{"5000":23.47},{"10000":27.17},{"20000":21.9},{"25000":25.09},{"30000":28.28}]
-    },
-    {
-        "n": "Chrono 10", "u": "https://www.chronopost.fr/fr/livraison/nos-offres/chrono-10",
-        "h": true,
-        "r": {"maxL":150,"maxL2W2H":300, "minL": 30, "minW": 21, "minH": 3},
-        "t": [{"1000":23.86},{"2000":24.54},{"5000":26.62},{"10000":30.07},{"20000":23.56},{"25000":26.53},{"30000":29.51}]
-    },
-    {
-        "n": "Chrono Relais 13", "u": "https://www.chronopost.fr/fr/livraison/nos-offres/chrono-relais",
-        "h": false,
-        "r": {"maxL":100,"maxL2W2H":250, "minL": 30, "minW": 21, "minH": 3},
-        "t": ["1000":8.39,"2000":8.99,"3000":9.58,"4000":10.18,"5000":10.76,"6000":11.35,"7000":11.95,"8000":12.54,"9000":13.13,"10000":13.73,"11000":14.52,"12000":15.3,"13000":16.09,"14000":16.88,"15000":17.68,"16000":18.47,"17000":19.26,"18000":20.04,"19000":20.83,"20000":21.62]
-    },
-    {
-        "n": "Shop2Shop", "u" : "https://www.chronopost.fr/fr/livraison/nos-offres/shop2shop-chronopost", "relais": "https://www.chronoshop2shop.fr/fr/trouver-relais-pickup",
-        "h": false,
-        "r": {"minL": 30, "minW": 21, "minH": 3 },
-        "t": [{"500":4.2},{"3000":6.5},{"10000":13.9},{"20000":19.9}]
-    },
-    {
         "n": "Colis Privé", "u": "https://client.colisprive-store.com/envoi", "relais" : "https://client.colisprive-store.com/relais",
         "h": true,
         "r": {"maxL":100,"maxLWH":150},
