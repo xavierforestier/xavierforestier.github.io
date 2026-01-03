@@ -18,14 +18,14 @@
                                                  && ( t.r.maxL2W2H === null || t.r.maxL2W2H >= length + (2 * width) + (2 * height) ) ); })
             .forEach(offre => {
               offres: {
-                offre.t.forEach( t => {
-                  for( p in t.t ) {
+                for (t in offre.t) {
+                  for( p in offre.t[t].t ) {
                     if( p >= weight ) {
                       result.push({ "n" : offre.n, "h": offre.h, "t": JSON.stringify(t.t[p]) });
                       break offres;
                     }
                   }
-                });
+                }
               }
           });
           const domArray = document.querySelector("tbody");
@@ -48,16 +48,21 @@
           return false;
         };
       });
+      document.querySelectorAll("form input").forEach(input => { input.onchange= (event) => { document.querySelector("form").submit(); }; });
     </script>
+    <style>
+      th,td { background-color: lightgrey; width: 300px }
+    </style>
   </head>
   <body>
     <h1>Format du Colis</h1>
     <form action="#">
-      <label for="weight">Poids (kg)</label> <input type="number" id="weight" min="0.1" step="0.1" required />
-      <label for="length">Longueur (cm)</label> <input type="number" id="length" min="1" required />
-      <label for="width">Largeur (cm)</label> <input type="number" id="width" min="1" required />
-      <label for="height">Hauteur (cm)</label> <input type="number" id="height" min="1" required /> 
-      <input type="submit" value="Calculer" />
+      <div class="weight"><label for="weight">Poids (kg)</label> <input type="number" id="weight" min="0.1" step="0.1" required /></div>
+      <div class="size">
+        <label for="length">Longueur (cm)</label> <input type="number" id="length" min="1" required />
+        <label for="width">Largeur (cm)</label> <input type="number" id="width" min="1" required />
+        <label for="height">Hauteur (cm)</label> <input type="number" id="height" min="1" required />
+      </div>
     </form>
     <h1>Résultats</h1>
     <table>
