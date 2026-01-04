@@ -1,4 +1,4 @@
 #/bin/bash
 echo "{\"n\":\"Lettre verte (imprimée)\",\"u\":\"https://www.laposte.fr/tarif-lettre-verte\",\"h\":true,\"r\":{\"maxL\":60,\"maxH\":3},\"t\":[$( echo $( grep "Tarifs Lettre verte à imprimer<" $1 | tr ',' '.' | sed 's/<tr[^>]*>/\n,{"/g' | grep 'row' | sed 's/<td[^>]*>//g' | sed 's/ kg<\/td>/000":/g' | sed 's/ g<\/td>/":/g' | sed 's/€<.*/}/g' ) | cut -c2- )]},"
-echo "{\"n\":\"Lettre verte\",\"u\":\"https://www.laposte.fr/tarif-lettre-verte\",\"h\":true,\"r\":{\"maxL\":60,\"maxH\":3},\"t\:[$( echo $( grep '<h2 class="heading-04">Tarifs Lettre verte ' $1 | tr ',' '.' | sed 's/<tr[^>]*>/\n,{"/g' | grep 'row' | sed 's/<td[^>]*>//g' | sed 's/ kg<\/td>/000":/g' | sed 's/ g<\/td>/":/g' | sed 's/€.*/}/g' ) | cut -c2- )]},"
+echo "{\"n\":\"Lettre verte\",\"u\":\"https://www.laposte.fr/tarif-lettre-verte\",\"h\":true,\"r\":{\"maxL\":60,\"maxH\":3},\"t\":[$( echo $( grep '<h2 class="heading-04">Tarifs Lettre verte ' $1 | tr ',' '.' | sed 's/<tr[^>]*>/\n,{"/g' | grep 'row' | sed 's/<td[^>]*>//g' | sed 's/ kg<\/td>/000":/g' | sed 's/ g<\/td>/":/g' | sed 's/€.*/}/g' ) | cut -c2- )]},"
 
