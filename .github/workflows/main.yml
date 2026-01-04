@@ -28,7 +28,7 @@ jobs:
         cat /tmp/mondialrelay.html
         echo "[" > colis/data/mondialrelay.json
         colis/data/parser/mondialrelay colis/data/raw/mondialrelay.html >> colis/data/mondialrelay.json
-        echo "]" >> colis/data/mondialrelais.json
+        echo "]" >> colis/data/mondialrelay.json
         git add colis/data/mondialrelay.json
         git commit -m "Update price" || true
         git push --force-with-lease
