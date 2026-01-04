@@ -7,5 +7,8 @@
 {"n":"Lettre service plus","u":"https://www.laposte.fr/tarifs-lettre-services-plus","h":true,"r":{"maxL":60,"maxH":3},"t":[{"20":3.47},{"100":4.57},{"250":5.78},{"500":8.10},{"1000":10.35},{"2000":12.01}]},
 {"n":"Lettre recommandée R1","u":"https://www.laposte.fr/tarif-lettre-recommandee","h":true,"r":{"maxL":60,"maxH":3},"t":[{"20":6.11} ,{"50":6.98} ,{"100":7.88} ,{"250":9.63} ,{"500":11.32} ,{"1000":13.02} ,{"2000":15.42}],"a":{"f":16}},
 {"n":"Lettre recommandée R2","u":"https://www.laposte.fr/tarif-lettre-recommandee","h":true,"r":{"maxL":60,"maxH":3},"t":[{"20":7.29} ,{"50":8.07} ,{"100":8.97} ,{"250":10.73} ,{"500":12.35} ,{"1000":14.11} ,{"2000":16.48}],"a":{"f":153}},
-{"n":"Lettre recommandée R3","u":"https://www.laposte.fr/tarif-lettre-recommandee","h":true,"r":{"maxL":60,"maxH":3},"t":[{"20":8.97} ,{"50":9.67} ,{"100":10.54} ,{"250":12.42} ,{"500":13.90} ,{"1000":15.65} ,{"2000":18.18}],"a":{"f":458}}
+{"n":"Lettre recommandée R3","u":"https://www.laposte.fr/tarif-lettre-recommandee","h":true,"r":{"maxL":60,"maxH":3},"t":[{"20":8.97} ,{"50":9.67} ,{"100":10.54} ,{"250":12.42} ,{"500":13.90} ,{"1000":15.65} ,{"2000":18.18}],"a":{"f":458}},
+{"n":"Lettre recommandée AR R1","u":"https://www.laposte.fr/tarif-lettre-recommandee","h":true,"r":{"maxL":60,"maxH":3},"t":[],"a":{"f":16}},
+{"n":"Lettre recommandée AR R2","u":"https://www.laposte.fr/tarif-lettre-recommandee","h":true,"r":{"maxL":60,"maxH":3},"t":[],"a":{"f":153}},
+{"n":"Lettre recommandée AR R3","u":"https://www.laposte.fr/tarif-lettre-recommandee","h":true,"r":{"maxL":60,"maxH":3},"t":[],"a":{"f":458}}
 ]
