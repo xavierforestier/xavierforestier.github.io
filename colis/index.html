@@ -9,10 +9,10 @@
 	    const length = document.querySelector("input#length");
 	    const width  = document.querySelector("input#width");
 	    const height = document.querySelector("input#height");
-	    length.setCustomValidity( length.value < width.value ? "La longueur doit être plus grande que la largeur" : length.value < height.value ? "La longueur doit être plus grande que la hauteur" : "" );
-	    width.setCustomValidity( length.value < width.value ? "La longueur doit être plus grande que la largeur" : width.value < height.value ? "La largeur doit être plus grande que la hauteur" : "" );
-            height.setCustomValidity( length.value < height.value ? "La longueur doit être plus grande que la hauteur" : width.value < height.value ? "Largeur doit être plus grande que la hauteur" : "" );
-	    if(length.value >= width.value && width.value >= height.value) {
+	    length.setCustomValidity( parseFloat(length.value) < parseFloat(width.value) ? "La longueur doit être plus grande que la largeur" : parseFloat(length.value) < parseFloat(height.value) ? "La longueur doit être plus grande que la hauteur" : "" );
+	    width.setCustomValidity( parseFloat(length.value) < parseFloat(width.value) ? "La longueur doit être plus grande que la largeur" : parseFloat(width.value) < parseFloat(height.value) ? "La largeur doit être plus grande que la hauteur" : "" );
+            height.setCustomValidity( parseFloat(length.value) < parseFloat(height.value) ? "La longueur doit être plus grande que la hauteur" : parseFloat(width.value) < parseFloat(height.value) ? "Largeur doit être plus grande que la hauteur" : "" );
+	    if(parseFloat(length.value) >= parseFloat(width.value) && parseFloat(width.value) >= parseFloat(height.value)) {
 	      document.querySelector('form').submit();
 	    }
 	  }; 
