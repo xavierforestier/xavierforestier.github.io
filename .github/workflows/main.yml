@@ -8,18 +8,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v6
-    - name: init env
-      run: pip install undetected-chromedriver
-    - name: Fetch
-      run: |
-        #python <<EOF
-        #import undetected_chromedriver as uc
-        #driver = uc.Chrome(headless=True,use_subprocess=False)
-        #driver.get('https://www.mondialrelay.fr/envoi-de-colis/tarifs-expeditions/')
-        #with open('/tmp/mondialrelay.html', 'w') as file:
-        #    file.write(driver.page_source)
-        #driver.quit()
-        #EOF
     - name: Parse Mondialrelais
       run: |
         git config --local user.name "xavier.forestier"
@@ -27,7 +15,7 @@ jobs:
         git fetch
         git switch main
         echo "[" > colis/data/mondialrelay.json
-        colis/data/parser/mondialrelay colis/data/raw/mondialrelay.html >> colis/data/mondialrelay.json
+        colis/data/parsers/mondialrelay colis/data/raw/mondialrelay.html >> colis/data/mondialrelay.json
         echo "]" >> colis/data/mondialrelay.json
         git add colis/data/mondialrelay.json
         git commit -m "Update price" || true
