@@ -1,0 +1,4 @@
+#/bin/bash
+echo "{\"n\":\"Lettre suivie (imprimée)\",\"u\":\"https://www.laposte.fr/tarif-lettre-suivie\",\"h\":true,\"r\":{\"maxL\":60,\"maxH\":3},\"t\":[$( echo $( grep "imprimer<" $1 | tr ',' '.' | sed 's/<tr[^>]*>/\n,{"/g' | grep 'row' | sed 's/<td[^>]*>//g' | sed 's/ kg<\/td>/000":/g' | sed 's/ g<\/td>/":/g' | sed 's/€.*/}/g' ) | cut -c2- )]},"
+echo "{\"n\":\"Lettre suivie\",\"u\":\"https://www.laposte.fr/tarif-lettre-suivie\",\"h\":true,\"r\":{\"maxL\":60,\"maxH\":3},\"t\":[$( echo $( grep "France</h2>" $1 | tr ',' '.' | sed 's/<tr[^>]*>/\n,{"/g' | grep 'row' | sed 's/<td[^>]*>//g' | sed 's/ kg<\/td>/000":/g' | sed 's/ g<\/td>/":/g' | sed 's/€.*/}/g' ) | cut -c2- )]},"
+

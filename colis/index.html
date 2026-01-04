@@ -7,7 +7,7 @@
         document.querySelectorAll('form input').forEach( input => { 
           input.onchange= (event) => { document.querySelector('form').submit(); }; 
         });
-        ["tarif","chronopost","mondialrelay"].forEach(src => {
+        ["tarif","chronopost","mondialrelay","laposte"].forEach(src => {
           fetch(`data/${src}.json`).then( j => {
             j.json().then( json => { while(json.length > 0) { tarifs.push(json.pop()); } });
           });

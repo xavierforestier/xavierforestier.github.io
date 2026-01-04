@@ -8,16 +8,29 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v6
-    - name: Parse Mondialrelais
+    - name: git init
       run: |
         git config --local user.name "xavier.forestier"
         git config --local user.email "{ID}+{username}@users.noreply.github.com"
         git fetch
         git switch main
+    - name: Parse Mondial Relay
+      run: |
         echo "[" > colis/data/mondialrelay.json
         colis/data/parsers/mondialrelay colis/data/raw/mondialrelay.html >> colis/data/mondialrelay.json
         echo "]" >> colis/data/mondialrelay.json
         git add colis/data/mondialrelay.json
+    - name: Parse La Poste
+      run: |
+        echo  "[" > colis/data/laposte.json
+        parsers/lettre-verte raw/tarif-lettre-verte.html >> colis/data/laposte.json
+        parsers/lettre-suivie raw/tarif-lettre-suivie.html >> olis/data/laposte.json
+        parsers/lettre-services-plus raw/tarifs-lettre-services-plus.html >> colis/data/laposte.json
+        parsers/lettre-recommandée raw/tarif-lettre-recommandée.html >> colis/data/laposte.json
+        echo "]" >> colis/data/laposte.json
+        git add colis/data/laposte.json
+    - name: git save
+      run: |
         git commit -m "Update price" || true
         git push --force-with-lease
         git push
