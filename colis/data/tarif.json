@@ -193,18 +193,21 @@
         "n": "Colis Privé - Contre Signature", "u": "https://client.colisprive-store.com/envoi", "relais" : "https://client.colisprive-store.com/relais",
         "h": true,
         "r": {"maxL":100,"maxLWH":150},
-        "t": [{"1000":8},{"4000":13},{"10000":18},{"20000":27}]
+        "t": [{"1000":8},{"4000":13},{"10000":18},{"20000":27}],
+        "a": { "f": 20 }
     },
     {
         "n": "Colis Privé", "u": "https://client.colisprive-store.com/envoi", "relais" : "https://client.colisprive-store.com/relais",
         "h": false,
         "r": {"maxL":100,"maxLWH":150},
-        "t": [{"1000":4.4},{"4000":6.5},{"10000":11.5},{"20000":17.5}]
+        "t": [{"1000":4.4},{"4000":6.5},{"10000":11.5},{"20000":17.5}],
+        "a": { "f": 20 }
     },
     {
         "n": "Relais Colis", "u" : "https://www.relaiscolis.com/faq/question/ou-trouver-les-tarifs-relais-colis", "relais": "https://www.relaiscolis.com/relais/trouver",
         "h": false,
         "r": {"maxLWH":170},
-        "t": [{"500":4.2},{"1000":4.5},{"2000":6.4},{"3000":6.6},{"4000":6.95},{"5000":9.35},{"7000":12.2},{"10000":13.75},{"15000":19.85},{"20000":20.95}]
+        "t": [{"500":4.2},{"1000":4.5},{"2000":6.4},{"3000":6.6},{"4000":6.95},{"5000":9.35},{"7000":12.2},{"10000":13.75},{"15000":19.85},{"20000":20.95}],
+        "a": { "f": 20 }
     }
 ]
