@@ -1,26 +1,5 @@
 [
     {
-        "n": "Lettre recommandée AR R1", "u": "https://www.laposte.fr/tarif-lettre-recommandee",
-        "h": true,
-        "r": {"maxL":60, "maxH":3},
-        "t": [{"20":7.56},{"50":8.43},{"100":9.33},{"250":11.08},{"500":12.77},{"1000":14.47},{"2000":16.87}],
-        "a": { "f": 16 }
-    },
-    {
-        "n": "Lettre recommandée AR R2", "u": "https://www.laposte.fr/tarif-lettre-recommandee",
-        "h": true,
-        "r": {"maxL":60, "maxH":3},
-        "t": [{"20":8.74},{"50":9.52},{"100":10.42},{"250":12.18},{"500":13.8},{"1000":15.56},{"2000":17.93}],
-        "a": { "f": 153 }
-    },
-    {
-        "n": "Lettre recommandée AR R3", "u": "https://www.laposte.fr/tarif-lettre-recommandee",
-        "h": true,
-        "r": {"maxL":60, "maxH":3},
-        "t": [{"20":10.42},{"50":11.12},{"100":11.99},{"250":13.87},{"500":15.35},{"1000":17.10},{"2000":19.63}],
-        "a": { "f": 458 }
-    },
-    {
         "n": "Colissimo", "u": "https://www.laposte.fr/colissimo-en-ligne/tarifs",
         "h": true,
         "r": {"maxL":100, "maxLWH":150},
