@@ -3,7 +3,7 @@ on:
   push:
   workflow_dispatch:
 jobs:
-  mondialrelay:    
+  tarifs:    
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -22,11 +22,11 @@ jobs:
         git add colis/data/mondialrelay.json
     - name: Parse La Poste
       run: |
-        echo  "[" > colis/data/laposte.json
-        parsers/lettre-verte raw/tarif-lettre-verte.html >> colis/data/laposte.json
-        parsers/lettre-suivie raw/tarif-lettre-suivie.html >> olis/data/laposte.json
-        parsers/lettre-services-plus raw/tarifs-lettre-services-plus.html >> colis/data/laposte.json
-        parsers/lettre-recommandée raw/tarif-lettre-recommandée.html >> colis/data/laposte.json
+        echo "[" > colis/data/laposte.json
+        colis/data/parsers/lettre-verte         colis/data/raw/tarif-lettre-verte.html          >> colis/data/laposte.json
+        colis/data/parsers/lettre-suivie        colis/data/raw/tarif-lettre-suivie.html         >> olis/data/laposte.json
+        colis/data/parsers/lettre-services-plus colis/data/raw/tarifs-lettre-services-plus.html >> colis/data/laposte.json
+        colis/data/parsers/lettre-recommandée   colis/data/raw/tarif-lettre-recommandée.html    >> colis/data/laposte.json
         echo "]" >> colis/data/laposte.json
         git add colis/data/laposte.json
     - name: git save
