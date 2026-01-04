@@ -1,0 +1,11 @@
+[
+{"n":"Lettre verte (imprimée)","u":"https://www.laposte.fr/tarif-lettre-verte","h":true,"r":{"maxL":60,"maxH":3},"t":[{"20":1.49 } ,{"100":2.97 } ,{"250":5.18 } ,{"500":7.21 } ,{"1000":9.14 } ,{"2000":11.06 }]},
+{"n":"Lettre verte","u":"https://www.laposte.fr/tarif-lettre-verte","h":true,"r":{"maxL":60,"maxH":3},"t\:[{"20":1.52 } ,{"100":3.10 } ,{"250":5.24 } ,{"500":7.41 } ,{"1000":9.29 } ,{"2000":11.14 }]},
+{"n":"Lettre suivie (imprimée)","u":"https://www.laposte.fr/tarif-lettre-suivie","h":true,"r":{"maxL":60,"maxH":3},"t":[{"20":1.99 } ,{"100":3.47 } ,{"250":5.68 } ,{"500":7.71 } ,{"1000":9.64 } ,{"2000":11.56 }]},
+{"n":"Lettre suivie","u":"https://www.laposte.fr/tarif-lettre-suivie","h":true,"r":{"maxL":60,"maxH":3},"t":[{"20":2.02 } ,{"100":3.60 } ,{"250":5.74 } ,{"500":7.91 } ,{"1000":9.79 } ,{"2000":11.64 }]},
+{"n":"Lettre service plus (imprimée)","u":"https://www.laposte.fr/tarifs-lettre-services-plus","h":true,"r":{"maxL":60,"maxH":3},"t":[]},
+{"n":"Lettre service plus","u":"https://www.laposte.fr/tarifs-lettre-services-plus","h":true,"r":{"maxL":60,"maxH":3},"t":[]},
+{"n":"Lettre recommandée R1","u":"https://www.laposte.fr/tarif-lettre-recommandee","h":true,"r":{"maxL":60,"maxH":3},"t":[],"a":{"f":16}},
+{"n":"Lettre recommandée R2","u":"https://www.laposte.fr/tarif-lettre-recommandee","h":true,"r":{"maxL":60,"maxH":3},"t":[],"a":{"f":153}},
+{"n":"Lettre recommandée R3","u":"https://www.laposte.fr/tarif-lettre-recommandee","h":true,"r":{"maxL":60,"maxH":3},"t":[],"a":{"f":458}}
+]
